@@ -72,21 +72,24 @@ var giphyURL = "";
                 player.name = player.name.split(' ').join('+');
                 console.log(player.name);
                 giphyURL = "https://api.giphy.com/v1/gifs/random?apikey=ZyUXN606XVdEZHZ5sk3RWjOKSzOOFOyk&tag=" + player.name;
-                setTimeout (giphyRetrieve, 1000);
+                setTimeout (googleRetrieve, 1000);
 
             })
         }
     })
-function giphyRetrieve(){
-    console.log(giphyURL);
+function googleRetrieve(){
+    var googleUrl = "https://www.googleapis.com/customsearch/v1?key=AIzaSyAaUUgoWlaZBGGzG4HNuQUN3Jcrw4NH7zU&cx=008788128101746337676:gz0k2znll90&q=dnd+" + player.name + "=1&searchType=image&num=2";
+    console.log(googleUrl);
     $.ajax({
-        url: giphyURL,
+        url: googleUrl,
         method: "GET"
 
-    }).then(function(giphyresponse){
-        console.log(giphyresponse);
-        console.log(giphyresponse.data.images.fixed_height.url);
-        console.log(giphyresponse.data.images.fixed_height_still.url);
+    }).then(function(googleresponse){
+        console.log(googleresponse);
+        console.log(googleresponse.items[0].link);
+        player.stillImageUrl = googleresponse.items[0].link;
+        $("#user-image-holder").attr("src", player.stillImageUrl);
+       // console.log(giphyresponse.data.images.fixed_height_still.url);
     });
     
 }

@@ -61,10 +61,43 @@ $(document).ready(function () {
     var playerArmorClass;
     var playerName;
     var playerDamageDice;
-    var playerHitPoints;
     var monsterName;
     var description = "";
     var damageDice;
+    var playerhitPoints;
 
 
 })
+
+//function if player is still living
+function hitPoints(Object) {
+    if (Object.hitPoints > 0) {
+        return true;
+    }
+    else return false;
+    }
+
+//need to create player listing
+function playerList () {
+    var goro = character("goro");
+    var scorpion = character("scorpion");
+    var vader = character("vader");
+    var yoda = character("yoda");
+    var stephen = character("stephen");
+    var karsten = character("karsten");
+    var joe = character("joe");
+    var austin = character("austin");
+    var brendan = character("bredan");
+
+    playerArray.push (goro,scorpion,vader,yoda,stephen,karsten,joe,austin,brendan);
+
+}
+console.log(playerList);
+
+//see if players have won
+function Winner() {
+    if(player.Array.length ===0 && player.hitPoints > 0)
+    return true;
+    else return false;
+}
+console.log(Winner);

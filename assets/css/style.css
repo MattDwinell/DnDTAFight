@@ -1,0 +1,13 @@
+body{
+    background-image: url("../images/colosseum-background-image.jpg");
+    background-size: cover;
+}
+.container{
+    padding:10px;
+}
+.darken-2{
+    color:white;
+}
+.col{
+    text-align:center;
+}

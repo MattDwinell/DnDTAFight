@@ -12,6 +12,7 @@ $(document).ready(function () {
     firebase.initializeApp(config);
     database = firebase.database();
     var generator = "null";
+    var messageCount = 0;
 
     //setting the initial player and opponent objects. we can add more attributes to pass in as needed.
     var opponentImage = "";
@@ -195,6 +196,8 @@ $(document).ready(function () {
             }
             var playerDialogMessage = $("<p>").text(playerAttackMessage).attr("class", "green accent-1");
             $("#dialog-box").prepend(playerDialogMessage);
+            messageCount ++;
+            dialogScrubber();
             console.log(playerAttackRoll, playerAttackMessage);
 
 
@@ -205,6 +208,13 @@ $(document).ready(function () {
 
         }
     })
+
+    function dialogScrubber(){
+        if (messageCount > 6){
+            var chosen
+        }
+
+    }
 
 
 

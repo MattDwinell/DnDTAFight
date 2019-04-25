@@ -11,3 +11,21 @@ body{
 .col{
     text-align:center;
 }
+#user-image-holder{
+    border: 2px solid green;
+    border-radius: 4px;
+    visibility:hidden;
+}
+#opponent-image-holder{
+    border: 2px solid red;
+    border-radius: 4px;
+    visibility:hidden;
+}
+.lighten-5{
+    border: 2px solid #bbdefb;
+    border-radius:4px;
+    visibility:hidden;
+}
+.s2{
+    text-align:center;
+}

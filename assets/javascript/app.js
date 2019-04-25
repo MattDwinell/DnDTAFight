@@ -32,13 +32,10 @@ $(document).ready(function () {
         stillImageUrl: "",
         activeImageUrl: ""
     }
-
-var giphyURL = "";
+// on click event for generating user character
     $("#generate-user-character").on("click", function (event) {
-
         event.preventDefault();
-        var userImage = $("#user-image-holder").html().trim();
-
+        var userImage = $("#user-image-holder").attr("src");
         if (userImage == "") {
             var randomIndex = Math.ceil(Math.random() * 325);
             var dndURL = "https://cors.io/?http://dnd5eapi.co/api/monsters/" + randomIndex + "/";
@@ -77,6 +74,12 @@ var giphyURL = "";
             })
         }
     })
+//on click event for generating opponent's character
+
+
+
+
+    //setting google retrieve as a separate function to be called one second after first api call- to prevent .then problems.
 function googleRetrieve(){
     var googleUrl = "https://www.googleapis.com/customsearch/v1?key=AIzaSyAaUUgoWlaZBGGzG4HNuQUN3Jcrw4NH7zU&cx=008788128101746337676:gz0k2znll90&q=dnd+" + player.name + "=1&searchType=image&num=2";
     console.log(googleUrl);

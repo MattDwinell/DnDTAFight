@@ -11,3 +11,7 @@ body{
 .col{
     text-align:center;
 }
+#user-image-holder{
+    border: 2px solid green;
+    border-radius: 4px;
+}

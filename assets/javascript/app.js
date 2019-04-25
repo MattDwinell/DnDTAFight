@@ -66,6 +66,7 @@ var generator = "null";
                 } else {
                     player.damageDice = "1d4"
                     player.attackBonus = 0;
+                    player.damageBonus = 0;
                 }
                 console.log(player);
                 console.log(player.name);
@@ -113,6 +114,7 @@ $("#generate-opponent-character").on("click", function (event) {
             } else {
                 opponent.damageDice = "1d4"
                 opponent.attackBonus = 0;
+                opponent.damageBonus = 0;
             }
             console.log(opponent);
             console.log(opponent.name);

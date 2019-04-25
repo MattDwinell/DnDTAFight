@@ -12,7 +12,7 @@ $(document).ready(function () {
     firebase.initializeApp(config);
     database = firebase.database();
     var generator = "null";
-    var messageCount = 0;
+    var messageCount = 1;
 
     //setting the initial player and opponent objects. we can add more attributes to pass in as needed.
     var opponentImage = "";
@@ -44,6 +44,8 @@ $(document).ready(function () {
         if (userImage == "") {
             $("#generate-user-character").css("visibility", "hidden");
             $("#user-image-holder").css("visibility", "visible");
+            $("#player-name").css("visibility", "visible");
+            $("#player-hp").css("visibility", "visible");
             var randomIndex = Math.ceil(Math.random() * 325);
             var dndURL = "https://cors.io/?http://dnd5eapi.co/api/monsters/" + randomIndex + "/";
             $.ajax({
@@ -93,6 +95,8 @@ $(document).ready(function () {
         if (opponentImage == "") {
             $("#generate-opponent-character").css("visibility", "hidden");
             $("#opponent-image-holder").css("visibility", "visible");
+            $("#opponent-name").css("visibility", "visible");
+            $("#opponent-hp").css("visibility", "visible");
             var randomIndex = Math.ceil(Math.random() * 325);
             var dndURL = "https://cors.io/?http://dnd5eapi.co/api/monsters/" + randomIndex + "/";
             $.ajax({

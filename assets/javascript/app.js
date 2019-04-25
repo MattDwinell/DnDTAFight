@@ -211,7 +211,8 @@ $(document).ready(function () {
 
     function dialogScrubber(){
         if (messageCount > 6){
-            var chosen
+            var dialogBox = document.getElementById("dialog-box");
+            dialogBox.removeChild(dialogBox.childNodes[6]);
         }
 
     }

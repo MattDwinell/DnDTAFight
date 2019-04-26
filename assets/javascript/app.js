@@ -173,10 +173,14 @@ $(document).ready(function () {
             if (playerAttackRoll >= opponent.armorClass) {
                 var damageDiceArray = player.damageDice.split('');
                 var numDice = damageDiceArray[0];
-               // if (typeof damageDiceArray[3] == "integer" or something like that){
-                    //code for adding damage dice for d10s and d12s
-               // }
-                var diceSides = damageDiceArray[2];
+                if (damageDiceArray.length == 3){
+                    var diceSides = damageDiceArray[2]; 
+               } else if (damageDiceArray.length == 4){
+                   var diceSides = damageDiceArray[2] + damageDiceArray[3];
+               } else {
+                   //temporary, need to code something to address formats like 1d10 + 1d8
+                   var diceSides = 6;
+               }
                 var playerAttackDamage = player.damageBonus;
                 for (var i = 0; i < numDice; i++) {
                     playerAttackDamage += Math.ceil(Math.random() * diceSides);

@@ -58,30 +58,21 @@ $(document).ready(function () {
                 player.armorClass = result.armor_class;
                 player.hitPoints = result.hit_points;
                 console.log(player, result);
-                if (typeof result.actions[0].damage_dice !== "undefined") {
-                    player.damageDice = result.actions[0].damage_dice;
-                    player.attackBonus = result.actions[0].attack_bonus;
-                    player.damageBonus = result.actions[0].damage_bonus;
-                } else if (typeof result.actions[1] !== "undefined") {
-                    if (typeof result.actions[1].damage_dice !== "undefined") {
-                        player.damageDice = result.actions[1].damage_dice;
-                        player.attackBonus = result.actions[1].attack_bonus;
-                        player.damageBonus = result.actions[1].damage_bonus;
+                for (var i = 0; i < result.actions.length; i++) {
+                    if (result.actions[i].damage_dice) {
+                        player.damageDice = result.actions[i].damage_dice;
+                        player.attackBonus = result.actions[i].attack_bonus;
+                        player.damageBonus = result.actions[i].damage_bonus;
+                        i = result.actions.length;
+                    } else {
+                        player.damageDice = "1d4"
+                        player.attackBonus = 0;
+                        player.damageBonus = 0;
                     }
-                } else if (typeof result.actions[2] !== "undefined") {
-                    if (typeof result.actions[2].damage_dice !== "undefined") {
-                        player.damageDice = result.actions[2].damage_dice;
-                        player.attackBonus = result.actions[2].attack_bonus;
-                        player.damageBonus = result.actions[2].damage_bonus;
-                    }
-                } else {
-                    player.damageDice = "1d4"
-                    player.attackBonus = 0;
-                    player.damageBonus = 0;
                 }
-                
+
                 player.name = player.name.split(' ').join('+');
-                
+
                 giphyURL = "https://api.giphy.com/v1/gifs/random?apikey=ZyUXN606XVdEZHZ5sk3RWjOKSzOOFOyk&tag=" + player.name;
                 setTimeout(userGoogleRetrieve, 1000);
                 $("#player-name").text("Your body has become that of a " + player.name.split("+").join(' ') + ".").css("visibility", "visible");
@@ -112,25 +103,19 @@ $(document).ready(function () {
                 opponent.armorClass = result.armor_class;
                 opponent.hitPoints = result.hit_points;
                 console.log(opponent, result);
-                
-                if (result.actions[0].damage_dice) {
-                    opponent.damageDice = result.actions[0].damage_dice;
-                    opponent.attackBonus = result.actions[0].attack_bonus;
-                    opponent.damageBonus = result.actions[0].damage_bonus;
-                } else if (result.actions[1].damage_dice) {
-                    opponent.damageDice = result.actions[1].damage_dice;
-                    opponent.attackBonus = result.actions[1].attack_bonus;
-                    opponent.damageBonus = result.actions[1].damage_bonus;
-                } else if (result.actions[2].damage_dice) {
-                    opponent.damageDice = result.actions[2].damage_dice;
-                    opponent.attackBonus = result.actions[2].attack_bonus;
-                    opponent.damageBonus = result.actions[2].damage_bonus;
-                } else {
-                    opponent.damageDice = "1d4"
-                    opponent.attackBonus = 0;
-                    opponent.damageBonus = 0;
+                for (var i = 0; i < result.actions.length; i++) {
+                    if (result.actions[i].damage_dice) {
+                        opponent.damageDice = result.actions[i].damage_dice;
+                        opponent.attackBonus = result.actions[i].attack_bonus;
+                        opponent.damageBonus = result.actions[i].damage_bonus;
+                        i = result.actions.length;
+                    } else {
+                        opponent.damageDice = "1d4"
+                        opponent.attackBonus = 0;
+                        opponent.damageBonus = 0;
+                    }
                 }
-               
+
                 opponent.name = opponent.name.split(' ').join('+');
                 giphyURL = "https://api.giphy.com/v1/gifs/random?apikey=ZyUXN606XVdEZHZ5sk3RWjOKSzOOFOyk&tag=" + opponent.name;
                 setTimeout(opponentGoogleRetrieve, 1000);
@@ -157,7 +142,7 @@ $(document).ready(function () {
             player.stillImageUrl = googleresponse.items[0].link;
             $("#user-image-holder").attr("src", player.stillImageUrl);
             player.name = player.name.split('+').join(" ")
-           
+
         });
 
     }
@@ -188,27 +173,28 @@ $(document).ready(function () {
             if (playerAttackRoll >= opponent.armorClass) {
                 var damageDiceArray = player.damageDice.split('');
                 var numDice = damageDiceArray[0];
+               // if (typeof damageDiceArray[3] == "integer" or something like that){
+                    //code for adding damage dice for d10s and d12s
+               // }
                 var diceSides = damageDiceArray[2];
                 var playerAttackDamage = player.damageBonus;
-                for (var i=0; i<numDice; i++){
-                    playerAttackDamage += Math.ceil(Math.random()* diceSides);
+                for (var i = 0; i < numDice; i++) {
+                    playerAttackDamage += Math.ceil(Math.random() * diceSides);
                 }
                 console.log(damageDiceArray);
-                damageDiceArray.splice(0,3);
+                damageDiceArray.splice(0, 6);
                 console.log(damageDiceArray);
-                if (typeof damageDiceArray [0] !== "undefined"){
+                if (typeof damageDiceArray[0] !== "undefined") {
                     numDice = damageDiceArray[0];
                     diceSides = damageDiceArray[2];
-                    for (var i=0; i<numDice; i++){
-                        playerAttackDamage += Math.ceil(Math.random()* diceSides);
+                    for (var i = 0; i < numDice; i++) {
+                        playerAttackDamage += Math.ceil(Math.random() * diceSides);
                     }
                 }
                 playerAttackMessage += "You rolled a " + playerAttackRoll + " and hit the " + opponent.name + " for " + playerAttackDamage + " damage.";
                 opponent.hitPoints -= playerAttackDamage
                 $("#opponent-hp").text("Current HP: " + opponent.hitPoints);
-                if (opponent.hitPoints <= 0){
-                    opponentDeath();
-                }
+                
 
             } else {
                 playerAttackMessage += "You rolled a " + playerAttackRoll + " and you were unable to hit the " + opponent.name;
@@ -218,6 +204,11 @@ $(document).ready(function () {
             messageCount++;
             dialogScrubber();
             console.log(playerAttackRoll, playerAttackMessage);
+            if (opponent.hitPoints <= 0) {
+                opponentDeath();
+            } else {
+                //code for opponent's attack
+            }
 
 
 
@@ -227,14 +218,19 @@ $(document).ready(function () {
 
         }
     })
-function opponentDeath (){
-    defeatedOpponents ++;
-    console.log(defeatedOpponents);
-    $("#opponent-image-holder").attr("src", "").css("visibility", "hidden");
-    $("#generate-opponent-character").css("visibility", "visible");
-    $("#opponent-hp").css("visibility", "hidden");
-    $("#opponent-name").css("visibility", "hidden");
-}
+    function opponentDeath() {
+        defeatedOpponents++;
+        console.log(defeatedOpponents);
+        var victoryMessage = $("<p>").text("You have destroyed the " + opponent.name + "! You take a moment to rest before your next battle");
+        player.hitPoints += 5;
+        $("#player-hp").text("current HP: " + player.hitPoints);
+        $("#dialog-box").prepend(victoryMessage);
+        dialogScrubber();
+        $("#opponent-image-holder").attr("src", "").css("visibility", "hidden");
+        $("#generate-opponent-character").css("visibility", "visible");
+        $("#opponent-hp").css("visibility", "hidden");
+        $("#opponent-name").css("visibility", "hidden");
+    }
 
 
     function dialogScrubber() {

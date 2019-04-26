@@ -13,6 +13,7 @@ $(document).ready(function () {
     database = firebase.database();
     var generator = "null";
     var messageCount = 1;
+    var defeatedOpponents = 0;
 
     //setting the initial player and opponent objects. we can add more attributes to pass in as needed.
     var opponentImage = "";
@@ -182,16 +183,32 @@ $(document).ready(function () {
         if (player.hitPoints > 0 && opponent.hitPoints > 0) {
             console.log(player, opponent);
             var playerAttackMessage = "";
-            var d4 = Math.ceil(Math.random() * 4);
-            var d6 = Math.ceil(Math.random() * 6);
-            var d8 = Math.ceil(Math.random() * 8);
-            var d10 = Math.ceil(Math.random() * 10);
-            var d12 = Math.ceil(Math.random() * 12);
             var d20 = Math.ceil(Math.random() * 20);
             var playerAttackRoll = d20 + player.attackBonus;
             if (playerAttackRoll >= opponent.armorClass) {
-                playerAttackMessage += "You rolled a " + playerAttackRoll + " and hit the " + opponent.name;
-
+                var damageDiceArray = player.damageDice.split('');
+                var numDice = damageDiceArray[0];
+                var diceSides = damageDiceArray[2];
+                var playerAttackDamage = player.damageBonus;
+                for (var i=0; i<numDice; i++){
+                    playerAttackDamage += Math.ceil(Math.random()* diceSides);
+                }
+                console.log(damageDiceArray);
+                damageDiceArray.splice(0,3);
+                console.log(damageDiceArray);
+                if (typeof damageDiceArray [0] !== "undefined"){
+                    numDice = damageDiceArray[0];
+                    diceSides = damageDiceArray[2];
+                    for (var i=0; i<numDice; i++){
+                        playerAttackDamage += Math.ceil(Math.random()* diceSides);
+                    }
+                }
+                playerAttackMessage += "You rolled a " + playerAttackRoll + " and hit the " + opponent.name + " for " + playerAttackDamage + " damage.";
+                opponent.hitPoints -= playerAttackDamage
+                $("#opponent-hp").text("Current HP: " + opponent.hitPoints);
+                if (opponent.hitPoints <= 0){
+                    opponentDeath();
+                }
 
             } else {
                 playerAttackMessage += "You rolled a " + playerAttackRoll + " and you were unable to hit the " + opponent.name;
@@ -210,13 +227,21 @@ $(document).ready(function () {
 
         }
     })
+function opponentDeath (){
+    defeatedOpponents ++;
+    console.log(defeatedOpponents);
+    $("#opponent-image-holder").attr("src", "").css("visibility", "hidden");
+    $("#generate-opponent-character").css("visibility", "visible");
+    $("#opponent-hp").css("visibility", "hidden");
+    $("#opponent-name").css("visibility", "hidden");
+}
+
 
     function dialogScrubber() {
-        if (messageCount > 6) {
+        if (messageCount > 5) {
             var dialogBox = document.getElementById("dialog-box");
-            dialogBox.removeChild(dialogBox.childNodes[6]);
+            dialogBox.removeChild(dialogBox.childNodes[5]);
         }
-
     }
 
 

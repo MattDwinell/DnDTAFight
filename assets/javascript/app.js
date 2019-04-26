@@ -240,7 +240,7 @@ $(document).ready(function () {
     function dialogScrubber() {
         if (messageCount > 5) {
             var dialogBox = document.getElementById("dialog-box");
-            dialogBox.removeChild(dialogBox.childNodes[5]);
+            dialogBox.removeChild(dialogBox.childNodes[6]);
         }
     }
 

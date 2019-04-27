@@ -14,6 +14,7 @@ $(document).ready(function () {
     var generator = "null";
     var messageCount = 1;
     var defeatedOpponents = 0;
+    var defeatedPlayer = 0;
 
     //setting the initial player and opponent objects. we can add more attributes to pass in as needed.
     var opponentImage = "";
@@ -264,7 +265,7 @@ $(document).ready(function () {
                     opponentAttackDamage += Math.ceil(Math.random() * diceSides);
                 }
             }
-            opponentAttackMessage += "the " + opponent.name + "rolled a " + opponentAttackRoll + " and hit you for " + opponentAttackDamage + " damage.";
+            opponentAttackMessage += "the " + opponent.name + " rolled a " + opponentAttackRoll + " and hit you for " + opponentAttackDamage + " damage.";
             player.hitPoints -= opponentAttackDamage;
             $("#player-hp").text("Current HP: " + player.hitPoints);
 
@@ -295,10 +296,26 @@ $(document).ready(function () {
         $("#generate-opponent-character").css("visibility", "visible");
         $("#opponent-hp").css("visibility", "hidden");
         $("#opponent-name").css("visibility", "hidden");
+        if (defeatedOpponents == 5){
+            playerImmortalize();
+        }
     }
 
     function playerDeath() {
-        console.log("player death working");
+        defeatedPlayer ++;
+        opponent.hitPoints += 5;
+        $("#opponent-hp").text("current HP: " + opponent.hitPoints);
+        var defeatMessage= $("<p>").text("Your world goes black as the " + opponent.name + " destroys you. you have " + (3 - defeatedPlayer) + "tries remaining before the opponent monster is immortalized.");
+        $("#dialog-box").prepend(defeatMessage);
+        dialogScrubber();
+        $("#user-image-holder").attr("src", "").css("visibility", "hidden");
+        $("#generate-user-character").css("visibility", "visible");
+        $("#player-hp").css("visibility", "hidden");
+        $("#player-name").css("visibility", "hidden");
+        if (defeatedPlayer == 3){
+            monsterImmortalize();
+        }
+
     }
 
 
@@ -309,9 +326,17 @@ $(document).ready(function () {
         }
     }
 
+function playerImmortalize(){
 
+}
+function monsterImmortalize(){
 
+}
 
+$("#test").on("click", function(){
+    $("#sign-in-html").css("visibility", "hidden");
+    $(".app-wrapper").css("visibility", "visible");
+})
 })
 //google api or bing api info
 //google:

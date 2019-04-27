@@ -41,3 +41,9 @@ body{
 .hide-on-start{
     visibility: hidden;
 }
+.app-wrapper{
+    visibility:hidden;
+}
+#sign-in-html{
+    visibility:visible;
+}

@@ -14,76 +14,97 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" id="sign-in-wrapper">
         <div class="row">
-            <div class="col s4">
-                <button id="generate-user-character" class="btn " type="submit"
-                    name="action">Create Character
-                    <i class="material-icons right"></i>
-                </button>
-
+            <div class="col s3">
+                <img src="assets/images/columns2.png" height="auto" width="100%">
             </div>
-            <div class="col s4 red darken-2">
-                DND ARENA FIGHT! Destroy your TA!
+            <div class="col s6 blue lighten-5" id="form-wrapper">
+                    <form >
+                        <h5 id="sign-in-message"> APPEND YOUR INFORMATION TO BEGIN, MORTAL.</h4>
+                        <input type="text" placeholder="email" id="email" class="light-green lighten-3">
+                        <input type="password" placeholder="password" id="password" class="light-green lighten-3">
+                        <button class="btn waves-effect waves-light" id="sign-in"> Sign in</button>
+                        <button class="btn waves-effect waves-light" id="register">Register</button>
+                    </form>
+                
             </div>
-            <div class="col s4">
-                <button id="generate-opponent-character" class="btn " type="submit"
-                    name="action"> Find Opponent
-                    <i class="material-icons right"></i>
-                </button>
+            <div class="col s3">
+                    <img src="assets/images/columns2.png" height="auto" width="100%">
             </div>
         </div>
-        <div class="row">
-            <div class="col s5">
-                <img src="" width=auto height="250px" id="user-image-holder">
-                <div class="row">
-                    <div class="col s12 blue lighten-5 hide-on-start" id="player-name"></div>
-                    <div class="col s12 light-green lighten-3 hide-on-start" id="player-hp"></div>
+    </div>
+
+    <div id="app-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col s4">
+                    <button id="generate-user-character" class="btn " type="submit" name="action">Create Character
+                        <i class="material-icons right"></i>
+                    </button>
+
+                </div>
+                <div class="col s4 red darken-2">
+                    DND ARENA FIGHT! Destroy your TA!
+                </div>
+                <div class="col s4">
+                    <button id="generate-opponent-character" class="btn " type="submit" name="action"> Find Opponent
+                        <i class="material-icons right"></i>
+                    </button>
                 </div>
             </div>
-            <div class="col s2">
-                <button id="attack" class="btn " type="submit" name="action">Fight!
-                    <i class="material-icons right"></i>
-                </button>
-            </div>
-            <div class="col s5">
-                <img src="" width=auto height="250px" id="opponent-image-holder">
-                <div class="row">
+            <div class="row">
+                <div class="col s5">
+                    <img src="" width=auto height="250px" id="user-image-holder">
+                    <div class="row">
+                        <div class="col s12 blue lighten-5 hide-on-start" id="player-name"></div>
+                        <div class="col s12 light-green lighten-3 hide-on-start" id="player-hp"></div>
+                    </div>
+                </div>
+                <div class="col s2">
+                    <button id="attack" class="btn " type="submit" name="action">Fight!
+                        <i class="material-icons right"></i>
+                    </button>
+                </div>
+                <div class="col s5">
+                    <img src="" width=auto height="250px" id="opponent-image-holder">
+                    <div class="row">
                         <div class="col s12 blue lighten-5 hide-on-start" id="opponent-name"></div>
                         <div class="col s12 deep-orange lighten-4 hide-on-start" id="opponent-hp"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row" style="margin-bottom: 0px;">
-            <div class="col s3">
-                <img src="assets/images/columns2.png" height="auto" width="100%">
+            <div class="row" style="margin-bottom: 0px;">
+                <div class="col s3">
+                    <img src="assets/images/columns2.png" height="auto" width="100%">
+                </div>
+                <div class="col s6 indigo lighten-4" id="dialog-box">
+                    <div>Prepare to fight.</div>
+                </div>
+                <div class="col s3">
+                    <img src="assets/images/columns2.png" height="auto" width="100%">
+                </div>
             </div>
-            <div class="col s6 indigo lighten-4" id="dialog-box">
-                <div>Prepare to fight.</div>
-            </div>
-            <div class="col s3">
-                <img src="assets/images/columns2.png" height="auto" width="100%">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s3">
-                <button id="user-stats" class="btn " type="submit" name="action">Toggle User
-                    Stats
-                    <i class="material-icons right"></i>
-                </button>
-            </div>
-            <div class="col s4">
-                <img src="assets/images/Brendan-neutral-face.jpg" height="50px" width="auto">
-                <img src="assets/images/austin-happy-face.png" height="50px" width="auto">
-                <img src="assets/images/joe-happy-face.jpg" height="50px" width="auto">
-                <img src="assets/images/karsten-neutral-face.jpg" height="50px" width="auto">
-                <img src="assets/images/stephen-happy-face.png" height="50px" width="auto">
-            </div>
-            <div class="col s4">
-                <button id="high-scores" class="btn " type="submit" name="action">Toggle
-                    Highscores
-                    <i class="material-icons right"></i>
-                </button>
+            <div class="row">
+                <div class="col s3">
+                    <button id="user-stats" class="btn " type="submit" name="action"> Toggle Top Players
+                        <i class="material-icons right"></i>
+                    </button>
+                </div>
+                <div class="col s4">
+                    <img src="assets/images/Brendan-neutral-face.jpg" height="50px" width="auto">
+                    <img src="assets/images/austin-happy-face.png" height="50px" width="auto">
+                    <img src="assets/images/joe-happy-face.jpg" height="50px" width="auto">
+                    <img src="assets/images/karsten-neutral-face.jpg" height="50px" width="auto">
+                    <img src="assets/images/stephen-happy-face.png" height="50px" width="auto">
+                </div>
+                <div class="col s4">
+                    <button id="high-scores" class="btn " type="submit" name="action">Toggle
+                        Immortalized Monsters
+                        <i class="material-icons right"></i>
+                        <button class="btn waves-effect waves-light sign-out">Sign out</button>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

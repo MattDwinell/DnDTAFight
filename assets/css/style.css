@@ -21,7 +21,7 @@ body{
     border-radius: 4px;
     visibility:hidden;
 }
-.lighten-5{
+.lighten-4{
     border: 2px solid #bbdefb;
     border-radius:4px;
     visibility:hidden;
@@ -41,3 +41,28 @@ body{
 .hide-on-start{
     visibility: hidden;
 }
+#app-wrapper{
+    display:none;
+}
+#sign-in-wrapper{
+    padding:5px 0px;;
+    
+    display:block;
+}
+#form-wrapper{
+    padding: 5px 5px;
+    border: 2px solid #e0e0e0;
+    
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: black;
+    opacity: 1; /* Firefox */
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: black;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: black;
+  }

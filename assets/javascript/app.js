@@ -58,17 +58,23 @@ $(document).ready(function () {
                 player.armorClass = result.armor_class;
                 player.hitPoints = result.hit_points;
                 console.log(player, result);
-                for (var i = 0; i < result.actions.length; i++) {
-                    if (result.actions[i].damage_dice) {
-                        player.damageDice = result.actions[i].damage_dice;
-                        player.attackBonus = result.actions[i].attack_bonus;
-                        player.damageBonus = result.actions[i].damage_bonus;
-                        i = result.actions.length;
-                    } else {
-                        player.damageDice = "1d4"
-                        player.attackBonus = 0;
-                        player.damageBonus = 0;
+                if (result.actions) {
+                    for (var i = 0; i < result.actions.length; i++) {
+                        if (result.actions[i].damage_dice) {
+                            player.damageDice = result.actions[i].damage_dice;
+                            player.attackBonus = result.actions[i].attack_bonus;
+                            player.damageBonus = result.actions[i].damage_bonus;
+                            i = result.actions.length;
+                        } else {
+                            player.damageDice = "1d4"
+                            player.attackBonus = 0;
+                            player.damageBonus = 0;
+                        }
                     }
+                } else {
+                    player.damageDice = "1d4"
+                    player.attackBonus = 0;
+                    player.damageBonus = 0;
                 }
 
                 player.name = player.name.split(' ').join('+');
@@ -103,17 +109,23 @@ $(document).ready(function () {
                 opponent.armorClass = result.armor_class;
                 opponent.hitPoints = result.hit_points;
                 console.log(opponent, result);
-                for (var i = 0; i < result.actions.length; i++) {
-                    if (result.actions[i].damage_dice) {
-                        opponent.damageDice = result.actions[i].damage_dice;
-                        opponent.attackBonus = result.actions[i].attack_bonus;
-                        opponent.damageBonus = result.actions[i].damage_bonus;
-                        i = result.actions.length;
-                    } else {
-                        opponent.damageDice = "1d4"
-                        opponent.attackBonus = 0;
-                        opponent.damageBonus = 0;
+                if (result.actions) {
+                    for (var i = 0; i < result.actions.length; i++) {
+                        if (result.actions[i].damage_dice) {
+                            opponent.damageDice = result.actions[i].damage_dice;
+                            opponent.attackBonus = result.actions[i].attack_bonus;
+                            opponent.damageBonus = result.actions[i].damage_bonus;
+                            i = result.actions.length;
+                        } else {
+                            opponent.damageDice = "1d4"
+                            opponent.attackBonus = 0;
+                            opponent.damageBonus = 0;
+                        }
                     }
+                } else {
+                    opponent.damageDice = "1d4"
+                    opponent.attackBonus = 0;
+                    opponent.damageBonus = 0;
                 }
 
                 opponent.name = opponent.name.split(' ').join('+');
@@ -173,14 +185,14 @@ $(document).ready(function () {
             if (playerAttackRoll >= opponent.armorClass) {
                 var damageDiceArray = player.damageDice.split('');
                 var numDice = damageDiceArray[0];
-                if (damageDiceArray.length == 3){
-                    var diceSides = damageDiceArray[2]; 
-               } else if (damageDiceArray.length == 4){
-                   var diceSides = damageDiceArray[2] + damageDiceArray[3];
-               } else {
-                   //temporary, need to code something to address formats like 1d10 + 1d8
-                   var diceSides = 6;
-               }
+                if (damageDiceArray.length == 3) {
+                    var diceSides = damageDiceArray[2];
+                } else if (damageDiceArray.length == 4) {
+                    var diceSides = damageDiceArray[2] + damageDiceArray[3];
+                } else {
+                    //temporary, need to code something to address formats like 1d10 + 1d8
+                    var diceSides = 6;
+                }
                 var playerAttackDamage = player.damageBonus;
                 for (var i = 0; i < numDice; i++) {
                     playerAttackDamage += Math.ceil(Math.random() * diceSides);
@@ -198,7 +210,7 @@ $(document).ready(function () {
                 playerAttackMessage += "You rolled a " + playerAttackRoll + " and hit the " + opponent.name + " for " + playerAttackDamage + " damage.";
                 opponent.hitPoints -= playerAttackDamage
                 $("#opponent-hp").text("Current HP: " + opponent.hitPoints);
-                
+
 
             } else {
                 playerAttackMessage += "You rolled a " + playerAttackRoll + " and you were unable to hit the " + opponent.name;
@@ -222,54 +234,54 @@ $(document).ready(function () {
 
         }
     })
-function opponentAttack(){
-    console.log("opponent attack is working");
-    var opponentAttackMessage = "";
-            var d20 = Math.ceil(Math.random() * 20);
-            var opponentAttackRoll = d20 + opponent.attackBonus;
-            if (opponentAttackRoll >= player.armorClass) {
-                var damageDiceArray = opponent.damageDice.split('');
-                var numDice = damageDiceArray[0];
-                if (damageDiceArray.length == 3){
-                    var diceSides = damageDiceArray[2]; 
-               } else if (damageDiceArray.length == 4){
-                   var diceSides = damageDiceArray[2] + damageDiceArray[3];
-               } else {
-                   //temporary, need to code something to address formats like 1d10 + 1d8
-                   var diceSides = 6;
-               }
-                var opponentAttackDamage = opponent.damageBonus;
+    function opponentAttack() {
+        console.log("opponent attack is working");
+        var opponentAttackMessage = "";
+        var d20 = Math.ceil(Math.random() * 20);
+        var opponentAttackRoll = d20 + opponent.attackBonus;
+        if (opponentAttackRoll >= player.armorClass) {
+            var damageDiceArray = opponent.damageDice.split('');
+            var numDice = damageDiceArray[0];
+            if (damageDiceArray.length == 3) {
+                var diceSides = damageDiceArray[2];
+            } else if (damageDiceArray.length == 4) {
+                var diceSides = damageDiceArray[2] + damageDiceArray[3];
+            } else {
+                //temporary, need to code something to address formats like 1d10 + 1d8
+                var diceSides = 6;
+            }
+            var opponentAttackDamage = opponent.damageBonus;
+            for (var i = 0; i < numDice; i++) {
+                opponentAttackDamage += Math.ceil(Math.random() * diceSides);
+            }
+            console.log(damageDiceArray);
+            damageDiceArray.splice(0, 6);
+            console.log(damageDiceArray);
+            if (typeof damageDiceArray[0] !== "undefined") {
+                numDice = damageDiceArray[0];
+                diceSides = damageDiceArray[2];
                 for (var i = 0; i < numDice; i++) {
                     opponentAttackDamage += Math.ceil(Math.random() * diceSides);
                 }
-                console.log(damageDiceArray);
-                damageDiceArray.splice(0, 6);
-                console.log(damageDiceArray);
-                if (typeof damageDiceArray[0] !== "undefined") {
-                    numDice = damageDiceArray[0];
-                    diceSides = damageDiceArray[2];
-                    for (var i = 0; i < numDice; i++) {
-                        opponentAttackDamage += Math.ceil(Math.random() * diceSides);
-                    }
-                }
-                opponentAttackMessage += "the " + opponent.name + "rolled a " + opponentAttackRoll + " and hit you for " + opponentAttackDamage + " damage.";
-                player.hitPoints -= opponentAttackDamage;
-                $("#player-hp").text("Current HP: " + player.hitPoints);
-                
-
-            } else {
-                opponentAttackMessage += "the "+ opponent.name+ " rolled a "  + opponentAttackRoll + " and missed you.";
             }
-            var opponentDialogMessage = $("<p>").text(opponentAttackMessage).attr("class", "green accent-1");
-            $("#dialog-box").prepend(opponentDialogMessage);
-            messageCount++;
-            dialogScrubber();
-            console.log(opponentAttackRoll, opponentAttackMessage);
-            if (player.hitPoints <= 0) {
-                playerDeath();
-            }
+            opponentAttackMessage += "the " + opponent.name + "rolled a " + opponentAttackRoll + " and hit you for " + opponentAttackDamage + " damage.";
+            player.hitPoints -= opponentAttackDamage;
+            $("#player-hp").text("Current HP: " + player.hitPoints);
 
-}
+
+        } else {
+            opponentAttackMessage += "the " + opponent.name + " rolled a " + opponentAttackRoll + " and missed you.";
+        }
+        var opponentDialogMessage = $("<p>").text(opponentAttackMessage).attr("class", "green accent-1");
+        $("#dialog-box").prepend(opponentDialogMessage);
+        messageCount++;
+        dialogScrubber();
+        console.log(opponentAttackRoll, opponentAttackMessage);
+        if (player.hitPoints <= 0) {
+            playerDeath();
+        }
+
+    }
 
     function opponentDeath() {
         defeatedOpponents++;
@@ -284,8 +296,8 @@ function opponentAttack(){
         $("#opponent-hp").css("visibility", "hidden");
         $("#opponent-name").css("visibility", "hidden");
     }
-    
-    function playerDeath(){
+
+    function playerDeath() {
         console.log("player death working");
     }
 

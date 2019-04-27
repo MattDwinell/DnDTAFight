@@ -245,9 +245,7 @@ $(document).ready(function () {
             var numDice = damageDiceArray[0];
             if (damageDiceArray.length == 3) {
                 var diceSides = damageDiceArray[2];
-            } else if (damageDiceArray.length == 4) {
-                var diceSides = damageDiceArray[2] + damageDiceArray[3];
-            } else {
+            } else  {
                 //temporary, need to code something to address formats like 1d10 + 1d8
                 var diceSides = 6;
             }
@@ -383,6 +381,7 @@ $("#sign-in").on("click", function (event) {
         console.log("test");
       $("#sign-in-wrapper").css("display", "block");
       $("#app-wrapper").css("display", "block");
+      
     }
    
   })

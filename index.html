@@ -14,20 +14,28 @@
 </head>
 
 <body>
-    <div class="container">
-    <div id="sign-in-html">
-            <form id="authentication">
-                    <h4> APPEND YOUR INFORMATION TO BEGIN, MORTAL.</h4>
-                    <input type="text" placeholder = "email" id="email">
-                    <input type="password" placeholder="password" id="password">
-                    <button class="btn waves-effect waves-light" id="sign-in"> Sign in</button>
-                    <button class="btn waves-effect waves-light" id="register">Register</button>
-                    <button class= "btn waves-effect waves-light sign-out">Sign out</button>
-            
-                </form>
+    <div class="container" id="sign-in-wrapper">
+        <div class="row">
+            <div class="col s3">
+                <img src="assets/images/columns2.png" height="auto" width="100%">
             </div>
+            <div class="col s6 blue lighten-5" id="form-wrapper">
+                    <form >
+                        <h5 id="sign-in-message"> APPEND YOUR INFORMATION TO BEGIN, MORTAL.</h4>
+                        <input type="text" placeholder="email" id="email" class="light-green lighten-3">
+                        <input type="password" placeholder="password" id="password" class="light-green lighten-3">
+                        <button class="btn waves-effect waves-light" id="sign-in"> Sign in</button>
+                        <button class="btn waves-effect waves-light" id="register">Register</button>
+                    </form>
+                
+            </div>
+            <div class="col s3">
+                    <img src="assets/images/columns2.png" height="auto" width="100%">
+            </div>
+        </div>
     </div>
-    <div class="app-wrapper">
+
+    <div id="app-wrapper">
         <div class="container">
             <div class="row">
                 <div class="col s4">
@@ -79,8 +87,7 @@
             </div>
             <div class="row">
                 <div class="col s3">
-                    <button id="user-stats" class="btn " type="submit" name="action">Toggle User
-                        Stats
+                    <button id="user-stats" class="btn " type="submit" name="action"> Toggle Top Players
                         <i class="material-icons right"></i>
                     </button>
                 </div>
@@ -93,8 +100,9 @@
                 </div>
                 <div class="col s4">
                     <button id="high-scores" class="btn " type="submit" name="action">Toggle
-                        Highscores
+                        Immortalized Monsters
                         <i class="material-icons right"></i>
+                        <button class="btn waves-effect waves-light sign-out">Sign out</button>
                     </button>
                 </div>
             </div>

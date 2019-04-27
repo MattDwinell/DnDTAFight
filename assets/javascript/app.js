@@ -333,10 +333,59 @@ function monsterImmortalize(){
 
 }
 
-$("#test").on("click", function(){
-    $("#sign-in-html").css("visibility", "hidden");
-    $(".app-wrapper").css("visibility", "visible");
-})
+
+
+//firebase authentication stuff:
+$("#sign-in").on("click", function (event) {
+    event.preventDefault();
+    var email = $("#email").val().trim();
+    var password = $("#password").val().trim();
+    console.log(email, password);
+    if (!email || !password) {
+      $("#sign-in-message").text("please input both email and password to sign in, or create one by registering an account.");
+    } else{
+    firebase.auth().signInWithEmailAndPassword(email, password) .catch(function(error){  //telling users what they need to fix to sign in
+        $("#sign-in-message").text(error.message);
+    });
+    
+    
+    
+    }
+  })
+
+  $("#register").on("click", function (event) {
+    event.preventDefault();
+    var email = $("#email").val().trim();
+    var password = $("#password").val().trim();
+    console.log(email, password);
+    if (!email || !password) {
+        $("#sign-in-message").text("please input both email and password to sign in, or create one by registering an account.");
+    } else{
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error){ // telling users what they need to fix to register
+        $("#sign-in-message").text(error.message);
+    });
+   
+    }
+  })
+
+
+  $(".sign-out").on("click", function () {
+    firebase.auth().signOut();
+  })
+//when the user logs in, we want to save their display name, hide the sign-in form, and show the train scheduler. if they sign out, we don't want them to have access to the train form until they sign back in.
+  firebase.auth().onAuthStateChanged(function (user) {
+    if(user){
+      
+    console.log(user);
+      $("#sign-in-wrapper").css("display", "none");
+      $("#app-wrapper").css("display", "block");
+    } else {
+        console.log("test");
+      $("#sign-in-wrapper").css("display", "block");
+      $("#app-wrapper").css("display", "block");
+    }
+   
+  })
 })
 //google api or bing api info
 //google:

@@ -79,8 +79,10 @@ $(document).ready(function () {
                 }
 
                 player.name = player.name.split(' ').join('+');
-
-                giphyURL = "https://api.giphy.com/v1/gifs/random?apikey=ZyUXN606XVdEZHZ5sk3RWjOKSzOOFOyk&tag=" + player.name;
+                
+                    console.log("usersource is null");
+                    $("#user-image-holder").attr("src","./assets/images/yoda.jpg" );
+                
                 setTimeout(userGoogleRetrieve, 1000);
                 $("#player-name").text("Your body has become that of a " + player.name.split("+").join(' ') + ".").css("visibility", "visible");
                 $("#player-hp").text("Current HP: " + player.hitPoints);
@@ -130,12 +132,11 @@ $(document).ready(function () {
                 }
 
                 opponent.name = opponent.name.split(' ').join('+');
-                giphyURL = "https://api.giphy.com/v1/gifs/random?apikey=ZyUXN606XVdEZHZ5sk3RWjOKSzOOFOyk&tag=" + opponent.name;
+                console.log("opponent source is null");
+                    $("#opponent-image-holder").attr("src","./assets/images/vader.png" );
                 setTimeout(opponentGoogleRetrieve, 1000);
                 $("#opponent-name").text("The " + opponent.name.split('+').join(' ') + " has entered the arena.").css("visibility", "visible");
                 $("#opponent-hp").text("Current HP: " + opponent.hitPoints);
-
-
             })
         }
     })
@@ -154,6 +155,9 @@ $(document).ready(function () {
             console.log(googleresponse.items[0].link);
             player.stillImageUrl = googleresponse.items[0].link;
             $("#user-image-holder").attr("src", player.stillImageUrl);
+            var userSource = $("#user-image-holder").attr("src");
+            console.log(userSource);
+            
             player.name = player.name.split('+').join(" ")
 
         });
@@ -346,6 +350,34 @@ function opponentDeath(){
     }
     function monsterImmortalize() {
 
+    }
+    $("#user-stats").on("click", function(){
+playerToggle();
+    })
+    $("#monster-stats").on("click", function(){
+        monsterToggle();
+    })
+    function playerToggle(){
+        var playerShown = $("#player-toggle-wrapper").attr("toggle");
+        console.log(playerShown);
+        if (playerShown == "hidden"){
+            console.log("if statement working");
+            $("#player-toggle-wrapper").attr("toggle", "shown");
+            $("#player-toggle-wrapper").css("display", "block");
+        } else {
+            $("#player-toggle-wrapper").attr("toggle", "hidden");
+            $("#player-toggle-wrapper").css("display", "none");
+        }
+    }
+    function monsterToggle(){
+        var monsterShown = $("#monster-toggle-wrapper").attr("toggle");
+        if (monsterShown== "hidden"){
+            $("#monster-toggle-wrapper").attr("toggle", "shown");
+            $("#monster-toggle-wrapper").css("display", "block");
+        } else {
+            $("#monster-toggle-wrapper").attr("toggle", "hidden");
+            $("#monster-toggle-wrapper").css("display", "none");
+        }
     }
 
 

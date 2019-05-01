@@ -12,7 +12,7 @@ $(document).ready(function () {
     firebase.initializeApp(config);
     database = firebase.database();
     var generator = "null";
-    var messageCount = 1;
+    var messageCount = 0;
     var defeatedOpponents = 0;
     var defeatedPlayer = 0;
 
@@ -179,6 +179,7 @@ $(document).ready(function () {
         event.preventDefault();
         console.log(userImage, opponentImage, player.damageDice);
         if (player.hitPoints > 0 && opponent.hitPoints > 0) {
+            $("#opponent-image-holder").effect("shake");
             console.log(player, opponent);
             var playerAttackMessage = "";
             var d20 = Math.ceil(Math.random() * 20);
@@ -187,27 +188,24 @@ $(document).ready(function () {
                 var damageDiceArray = player.damageDice.split('');
                 var numDice = damageDiceArray[0];
                 if (damageDiceArray.length == 3) {
-                    var diceSides = damageDiceArray[2];
-                } else if (damageDiceArray.length == 4) {
-                    var diceSides = damageDiceArray[2] + damageDiceArray[3];
-                } else {
+                    var diceSides = parseInt(damageDiceArray[2], 10);
+                // } else if (damageDiceArray.length == 4) {
+                //     var diceSides = parseInt(damageDiceArray[2] + damageDiceArray[3], 10);
+                // 
+                }else {
                     //temporary, need to code something to address formats like 1d10 + 1d8
                     var diceSides = 6;
+                }
+                if (player.damageBonus == "undefined"){
+                    player.damageBonus = 0;
                 }
                 var playerAttackDamage = player.damageBonus;
                 for (var i = 0; i < numDice; i++) {
                     playerAttackDamage += Math.ceil(Math.random() * diceSides);
                 }
                 console.log(damageDiceArray);
-                damageDiceArray.splice(0, 6);
-                console.log(damageDiceArray);
-                if (typeof damageDiceArray[0] !== "undefined") {
-                    numDice = damageDiceArray[0];
-                    diceSides = damageDiceArray[2];
-                    for (var i = 0; i < numDice; i++) {
-                        playerAttackDamage += Math.ceil(Math.random() * diceSides);
-                    }
-                }
+
+
                 playerAttackMessage += "You rolled a " + playerAttackRoll + " and hit the " + opponent.name + " for " + playerAttackDamage + " damage.";
                 opponent.hitPoints -= playerAttackDamage
                 $("#opponent-hp").text("Current HP: " + opponent.hitPoints);
@@ -224,7 +222,7 @@ $(document).ready(function () {
             if (opponent.hitPoints <= 0) {
                 opponentDeath();
             } else {
-                setTimeout(opponentAttack, 500);
+                setTimeout(opponentAttack, 800);
             }
 
 
@@ -232,10 +230,11 @@ $(document).ready(function () {
 
 
 
-
         }
+
     })
     function opponentAttack() {
+        $("#user-image-holder").effect("shake");
         console.log("opponent attack is working");
         var opponentAttackMessage = "";
         var d20 = Math.ceil(Math.random() * 20);
@@ -245,9 +244,12 @@ $(document).ready(function () {
             var numDice = damageDiceArray[0];
             if (damageDiceArray.length == 3) {
                 var diceSides = damageDiceArray[2];
-            } else  {
+            } else {
                 //temporary, need to code something to address formats like 1d10 + 1d8
                 var diceSides = 6;
+            }
+            if (opponent.damageBonus == "undefined"){
+            opponent.damageBonus = 0;
             }
             var opponentAttackDamage = opponent.damageBonus;
             for (var i = 0; i < numDice; i++) {
@@ -283,6 +285,7 @@ $(document).ready(function () {
     }
 
     function opponentDeath() {
+        defeatedPlayer = 0;
         defeatedOpponents++;
         console.log(defeatedOpponents);
         var victoryMessage = $("<p>").text("You have destroyed the " + opponent.name + "! You take a moment to rest before your next battle");
@@ -290,27 +293,41 @@ $(document).ready(function () {
         $("#player-hp").text("current HP: " + player.hitPoints);
         $("#dialog-box").prepend(victoryMessage);
         dialogScrubber();
-        $("#opponent-image-holder").attr("src", "").css("visibility", "hidden");
-        $("#generate-opponent-character").css("visibility", "visible");
-        $("#opponent-hp").css("visibility", "hidden");
-        $("#opponent-name").css("visibility", "hidden");
+        opponentDeathAnimation();
         if (defeatedOpponents == 5){
             playerImmortalize();
         }
+            
+        
     }
+function opponentImageClear(){
+    $("#opponent-image-holder").attr("src", "").css("visibility", "hidden");
+    $("#generate-opponent-character").css("visibility", "visible");
+    $("#opponent-hp").css("visibility", "hidden");
+    $("#opponent-name").css("visibility", "hidden");
+    if (defeatedOpponents == 5) {
+        playerImmortalize();
+    }
+}
+function opponentDeath(){
+    console.log('working');
+  
+    setTimeout(opponentImageClear, 1000);
+}
 
     function playerDeath() {
-        defeatedPlayer ++;
+        defeatedOpponents = 0;
+        defeatedPlayer++;
         opponent.hitPoints += 5;
         $("#opponent-hp").text("current HP: " + opponent.hitPoints);
-        var defeatMessage= $("<p>").text("Your world goes black as the " + opponent.name + " destroys you. you have " + (3 - defeatedPlayer) + "tries remaining before the opponent monster is immortalized.");
+        var defeatMessage = $("<p>").text("Your world goes black as the " + opponent.name.split('+').join(' ') + " destroys you. you have " + (3 - defeatedPlayer) + " tries remaining before the opponent monster is immortalized.");
         $("#dialog-box").prepend(defeatMessage);
         dialogScrubber();
         $("#user-image-holder").attr("src", "").css("visibility", "hidden");
         $("#generate-user-character").css("visibility", "visible");
         $("#player-hp").css("visibility", "hidden");
         $("#player-name").css("visibility", "hidden");
-        if (defeatedPlayer == 3){
+        if (defeatedPlayer == 3) {
             monsterImmortalize();
         }
 
@@ -324,67 +341,67 @@ $(document).ready(function () {
         }
     }
 
-function playerImmortalize(){
+    function playerImmortalize() {
 
-}
-function monsterImmortalize(){
-
-}
-
-
-
-//firebase authentication stuff:
-$("#sign-in").on("click", function (event) {
-    event.preventDefault();
-    var email = $("#email").val().trim();
-    var password = $("#password").val().trim();
-    console.log(email, password);
-    if (!email || !password) {
-      $("#sign-in-message").text("please input both email and password to sign in, or create one by registering an account.");
-    } else{
-    firebase.auth().signInWithEmailAndPassword(email, password) .catch(function(error){  //telling users what they need to fix to sign in
-        $("#sign-in-message").text(error.message);
-    });
-    
-    
-    
     }
-  })
+    function monsterImmortalize() {
 
-  $("#register").on("click", function (event) {
-    event.preventDefault();
-    var email = $("#email").val().trim();
-    var password = $("#password").val().trim();
-    console.log(email, password);
-    if (!email || !password) {
-        $("#sign-in-message").text("please input both email and password to sign in, or create one by registering an account.");
-    } else{
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error){ // telling users what they need to fix to register
-        $("#sign-in-message").text(error.message);
-    });
-   
     }
-  })
 
 
-  $(".sign-out").on("click", function () {
-    firebase.auth().signOut();
-  })
-//when the user logs in, we want to save their display name, hide the sign-in form, and show the train scheduler. if they sign out, we don't want them to have access to the train form until they sign back in.
-  firebase.auth().onAuthStateChanged(function (user) {
-    if(user){
-      
-    console.log(user);
-      $("#sign-in-wrapper").css("display", "none");
-      $("#app-wrapper").css("display", "block");
-    } else {
-        console.log("test");
-      $("#sign-in-wrapper").css("display", "block");
-      $("#app-wrapper").css("display", "block");
-      
-    }
-   
-  })
+
+    //firebase authentication stuff:
+    $("#sign-in").on("click", function (event) {
+        event.preventDefault();
+        var email = $("#email").val().trim();
+        var password = $("#password").val().trim();
+        console.log(email, password);
+        if (!email || !password) {
+            $("#sign-in-message").text("please input both email and password to sign in, or create one by registering an account.");
+        } else {
+            firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {  //telling users what they need to fix to sign in
+                $("#sign-in-message").text(error.message);
+            });
+
+
+
+        }
+    })
+
+    $("#register").on("click", function (event) {
+        event.preventDefault();
+        var email = $("#email").val().trim();
+        var password = $("#password").val().trim();
+        console.log(email, password);
+        if (!email || !password) {
+            $("#sign-in-message").text("please input both email and password to sign in, or create one by registering an account.");
+        } else {
+            firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) { // telling users what they need to fix to register
+                $("#sign-in-message").text(error.message);
+            });
+
+        }
+    })
+
+
+    $(".sign-out").on("click", function () {
+        firebase.auth().signOut();
+    })
+    //when the user logs in, we want to save their display name, hide the sign-in form, and show the train scheduler. if they sign out, we don't want them to have access to the train form until they sign back in.
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+
+            console.log(user);
+            $("#sign-in-wrapper").css("display", "none");
+            $("#app-wrapper").css("display", "block");
+        } else {
+            console.log("test");
+            $("#sign-in-wrapper").css("display", "block");
+            $("#app-wrapper").css("display", "block");
+
+        }
+
+    })
 })
 //google api or bing api info
 //google:

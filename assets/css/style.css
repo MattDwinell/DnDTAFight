@@ -82,3 +82,29 @@ body{
     overflow-y: scroll;
     overflow-x: hidden;
 } 
+#player-toggle-wrapper {
+    display:none;
+    color:white;
+   
+}
+#monster-toggle-wrapper{
+    display:none;
+    color:white;
+    
+}
+.monsters{
+    border: 2px solid #c0ca33;
+    border-radius: 3px;
+    padding:2px;
+}
+.players{
+    border: 2px solid #69f0ae;
+    border-radius: 3px;
+    padding:2px;
+}
+#immortalized-monster-image{
+    border:2px solid red;
+    border-radius: 1px;
+
+
+}

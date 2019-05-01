@@ -14,24 +14,24 @@
 </head>
 
 <body>
-        <button class="btn waves-effect waves-light sign-out">Sign out</button>
+    <button class="btn waves-effect waves-light sign-out">Sign out</button>
     <div class="container" id="sign-in-wrapper">
         <div class="row">
             <div class="col s3">
                 <img src="assets/images/columns2.png" height="auto" width="100%">
             </div>
             <div class="col s6 blue lighten-5" id="form-wrapper">
-                    <form >
-                        <h5 id="sign-in-message"> APPEND YOUR INFORMATION TO BEGIN, MORTAL.</h4>
+                <form>
+                    <h5 id="sign-in-message"> APPEND YOUR INFORMATION TO BEGIN, MORTAL.</h4>
                         <input type="text" placeholder="email" id="email" class="light-green lighten-3">
                         <input type="password" placeholder="password" id="password" class="light-green lighten-3">
                         <button class="btn waves-effect waves-light" id="sign-in"> Sign in</button>
                         <button class="btn waves-effect waves-light" id="register">Register</button>
-                    </form>
-                
+                </form>
+
             </div>
             <div class="col s3">
-                    <img src="assets/images/columns2.png" height="auto" width="100%">
+                <img src="assets/images/columns2.png" height="auto" width="100%">
             </div>
         </div>
     </div>
@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="col s4">
                     <button id="generate-user-character" class="btn " type="submit" name="action">Create Character
-                        
+
                     </button>
 
                 </div>
@@ -50,7 +50,7 @@
                 </div>
                 <div class="col s4">
                     <button id="generate-opponent-character" class="btn " type="submit" name="action"> Find Opponent
-                        
+
                     </button>
                 </div>
             </div>
@@ -63,9 +63,9 @@
                     </div>
                 </div>
                 <div class="col s2">
-                        <a class="waves-effect waves-light btn" id="attack">Fight!</a>
+                    <a class="waves-effect waves-light btn" id="attack">Fight!</a>
                     <!-- <button id="attack" class="btn" type="submit" name="action">Fight! -->
-                       
+
                     <!-- </button> -->
                 </div>
                 <div class="col s5">
@@ -89,7 +89,7 @@
             </div>
             <div class="row">
                 <div class="col s3">
-                    <button id="user-stats" class="btn " type="submit" name="action"> Toggle Top Players
+                    <button id="user-stats" class="btn " type="submit" name="action">Top Players
                         <i class="material-icons right"></i>
                     </button>
                 </div>
@@ -101,10 +101,34 @@
                     <img src="assets/images/stephen-happy-face.png" height="50px" width="auto">
                 </div>
                 <div class="col s4">
-                    <button id="high-scores" class="btn " type="submit" name="action">Toggle
+                    <button id="monster-stats" class="btn " type="submit" name="action">
                         Immortalized Monsters
                         <i class="material-icons right"></i>
                     </button>
+                </div>
+            </div>
+            <div class="row">
+                <div id="player-toggle-wrapper" toggle="hidden">
+                    <div class="col s6">
+                        <div class="row blue darken-2 players">
+                            <div class="col s4" id="player-tags"> Player Tag</div>
+                            <div class="col s4" id="player-creatures">Creature Used</div>
+                            <div class="col s4" id="player-hp-remaining">Hp Remaining</div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div id="monster-toggle-wrapper" toggle="hidden">
+                    <div class="col s6">
+                        <div class="row deep-orange accent-3 monsters">
+                            <div class="col s4" id="monster-image">monster image</div>
+                            <div class="col s4" id="monster-name">Monster Name</div>
+                            <div class="col s4" id="monster-hp-remaining"> HP Remaining</div>
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -113,10 +137,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
     <script src="assets/javascript/app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
-    <script
-  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
-  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
-  crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+        integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
 </body>
 
 </html>

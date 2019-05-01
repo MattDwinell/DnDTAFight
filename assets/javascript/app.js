@@ -80,7 +80,9 @@ $(document).ready(function () {
 
                 player.name = player.name.split(' ').join('+');
 
-                giphyURL = "https://api.giphy.com/v1/gifs/random?apikey=ZyUXN606XVdEZHZ5sk3RWjOKSzOOFOyk&tag=" + player.name;
+                console.log("usersource is null");
+                $("#user-image-holder").attr("src", "./assets/images/yoda.jpg");
+
                 setTimeout(userGoogleRetrieve, 1000);
                 $("#player-name").text("Your body has become that of a " + player.name.split("+").join(' ') + ".").css("visibility", "visible");
                 $("#player-hp").text("Current HP: " + player.hitPoints);
@@ -130,12 +132,11 @@ $(document).ready(function () {
                 }
 
                 opponent.name = opponent.name.split(' ').join('+');
-                giphyURL = "https://api.giphy.com/v1/gifs/random?apikey=ZyUXN606XVdEZHZ5sk3RWjOKSzOOFOyk&tag=" + opponent.name;
+                console.log("opponent source is null");
+                $("#opponent-image-holder").attr("src", "./assets/images/vader.png");
                 setTimeout(opponentGoogleRetrieve, 1000);
                 $("#opponent-name").text("The " + opponent.name.split('+').join(' ') + " has entered the arena.").css("visibility", "visible");
                 $("#opponent-hp").text("Current HP: " + opponent.hitPoints);
-
-
             })
         }
     })
@@ -154,6 +155,9 @@ $(document).ready(function () {
             console.log(googleresponse.items[0].link);
             player.stillImageUrl = googleresponse.items[0].link;
             $("#user-image-holder").attr("src", player.stillImageUrl);
+            var userSource = $("#user-image-holder").attr("src");
+            console.log(userSource);
+
             player.name = player.name.split('+').join(" ")
 
         });
@@ -189,14 +193,14 @@ $(document).ready(function () {
                 var numDice = damageDiceArray[0];
                 if (damageDiceArray.length == 3) {
                     var diceSides = parseInt(damageDiceArray[2], 10);
-                // } else if (damageDiceArray.length == 4) {
-                //     var diceSides = parseInt(damageDiceArray[2] + damageDiceArray[3], 10);
-                // 
-                }else {
+                    // } else if (damageDiceArray.length == 4) {
+                    //     var diceSides = parseInt(damageDiceArray[2] + damageDiceArray[3], 10);
+                    // 
+                } else {
                     //temporary, need to code something to address formats like 1d10 + 1d8
                     var diceSides = 6;
                 }
-                if (player.damageBonus == "undefined"){
+                if (typeof player.damageBonus == "undefined") {
                     player.damageBonus = 0;
                 }
                 var playerAttackDamage = player.damageBonus;
@@ -248,16 +252,15 @@ $(document).ready(function () {
                 //temporary, need to code something to address formats like 1d10 + 1d8
                 var diceSides = 6;
             }
-            if (opponent.damageBonus == "undefined"){
-            opponent.damageBonus = 0;
+            if (typeof opponent.damageBonus == "undefined") {
+                opponent.damageBonus = 0;
             }
             var opponentAttackDamage = opponent.damageBonus;
             for (var i = 0; i < numDice; i++) {
                 opponentAttackDamage += Math.ceil(Math.random() * diceSides);
             }
             console.log(damageDiceArray);
-            damageDiceArray.splice(0, 6);
-            console.log(damageDiceArray);
+
             if (typeof damageDiceArray[0] !== "undefined") {
                 numDice = damageDiceArray[0];
                 diceSides = damageDiceArray[2];
@@ -287,33 +290,43 @@ $(document).ready(function () {
     function opponentDeath() {
         defeatedPlayer = 0;
         defeatedOpponents++;
-        console.log(defeatedOpponents);
+        console.log(defeatedOpponents, "opponent died");
         var victoryMessage = $("<p>").text("You have destroyed the " + opponent.name + "! You take a moment to rest before your next battle");
         player.hitPoints += 5;
         $("#player-hp").text("current HP: " + player.hitPoints);
         $("#dialog-box").prepend(victoryMessage);
         dialogScrubber();
-        opponentDeathAnimation();
-        if (defeatedOpponents == 5){
-            playerImmortalize();
+        setTimeout(opponentImageClear, 1000);
+        if (defeatedOpponents == 5) {
+            var playerTagDiv = $("<input>",{
+                "placeholder": "your name/tag", "id": "player-tag-div"
+            })
+            var playerTagButton = $("<button>").attr("id", "player-tag-div").text("Submit");
+            $("#dialog-box").prepend(playerTagButton, playerTagDiv);
+            dialogScrubber();
+           
         }
-            
-        
+
+
     }
-function opponentImageClear(){
-    $("#opponent-image-holder").attr("src", "").css("visibility", "hidden");
-    $("#generate-opponent-character").css("visibility", "visible");
-    $("#opponent-hp").css("visibility", "hidden");
-    $("#opponent-name").css("visibility", "hidden");
-    if (defeatedOpponents == 5) {
-        playerImmortalize();
+    $("#player-tag-button").on("click", playerImmortalize);
+
+    function opponentImageClear() {
+        $("#opponent-image-holder").attr("src", "").css("visibility", "hidden");
+        $("#generate-opponent-character").css("visibility", "visible");
+        $("#opponent-hp").css("visibility", "hidden");
+        $("#opponent-name").css("visibility", "hidden");
+        if (defeatedOpponents == 5) {
+            playerImmortalize();
+            playerDeath();
+            defeatedPlayer = 0;
+        }
     }
-}
-function opponentDeath(){
-    console.log('working');
-  
-    setTimeout(opponentImageClear, 1000);
-}
+    
+      
+
+
+    
 
     function playerDeath() {
         defeatedOpponents = 0;
@@ -327,8 +340,11 @@ function opponentDeath(){
         $("#generate-user-character").css("visibility", "visible");
         $("#player-hp").css("visibility", "hidden");
         $("#player-name").css("visibility", "hidden");
+        console.log(defeatedPlayer);
         if (defeatedPlayer == 3) {
             monsterImmortalize();
+            opponentDeath();
+            defeatedOpponents = 0;
         }
 
     }
@@ -342,10 +358,87 @@ function opponentDeath(){
     }
 
     function playerImmortalize() {
+        console.log("immortalize function activated");
+        var playerHPRemaining = player.hitPoints;
+        var playerCreature = player.name;
+        var playerTag = $("#player-tag-div").val().trim();
+        console.log(playerTag)
+        database.ref().push({
+            playerHPRemaining: playerHPRemaining,
+            playerCreature: playerCreature,
+            playerTag: playerTag
+        })
 
     }
     function monsterImmortalize() {
+        console.log("immortalize function activated");
+        var monsterUrl = opponent.stillImageUrl;
+        var monsterName = opponent.name;
+        var monsterHPRemaining = opponent.hitPoints;
+        database.ref().push({
+         //   monsterImage: monsterUrl,
+            monsterName: monsterName,
+            monsterHPRemaining: monsterHPRemaining
+        })
 
+    }
+
+    database.ref().on("child_added", function (snapshot) {
+        console.log(snapshot.val());
+        console.log(snapshot.val().monsterImage, snapshot.val().playerCreature)
+        if (snapshot.val().monsterName) {
+            
+            var newMonsterName = $("<p>").text(snapshot.val().monsterName).attr("height", "50px");
+           // var newMonsterImage = $("<img>",{"src": snapshot.val().monsterImage, "width": "50px", "height": "50px", "id":"immortalized-monster-image"
+
+          //  });
+          //  var newMonsterImageDiv = $("<div>").attr("id", "immortalized-monster-div");
+          //  newMonsterImageDiv.append(newMonsterImage);
+            var newMonsterHPRemaining = $("<p>").text(snapshot.val().monsterHPRemaining).attr("height", "50px");
+          //  $("#monster-image").append(newMonsterImageDiv);
+            $("#monster-name").append(newMonsterName);
+            $("#monster-hp-remaining").append(newMonsterHPRemaining);
+        } else if (snapshot.val().playerCreature) {
+            var newplayerCreature = $("<p>").text(snapshot.val().playerCreature);
+            var newPlayerTag = $("<p>").text(snapshot.val().playerTag);
+            var newPlayerHPRemaining = $("<p>").text(snapshot.val().playerHPRemaining);
+            $("#player-tags").append(newPlayerTag);
+            $("#player-creatures").append(newplayerCreature);
+            $("#player-hp-remaining").append(newPlayerHPRemaining);
+        }
+
+
+
+    })
+
+
+    $("#user-stats").on("click", function () {
+        playerToggle();
+    })
+    $("#monster-stats").on("click", function () {
+        monsterToggle();
+    })
+    function playerToggle() {
+        var playerShown = $("#player-toggle-wrapper").attr("toggle");
+        
+        if (playerShown == "hidden") {
+            
+            $("#player-toggle-wrapper").attr("toggle", "shown");
+            $("#player-toggle-wrapper").css("display", "block");
+        } else {
+            $("#player-toggle-wrapper").attr("toggle", "hidden");
+            $("#player-toggle-wrapper").css("display", "none");
+        }
+    }
+    function monsterToggle() {
+        var monsterShown = $("#monster-toggle-wrapper").attr("toggle");
+        if (monsterShown == "hidden") {
+            $("#monster-toggle-wrapper").attr("toggle", "shown");
+            $("#monster-toggle-wrapper").css("display", "block");
+        } else {
+            $("#monster-toggle-wrapper").attr("toggle", "hidden");
+            $("#monster-toggle-wrapper").css("display", "none");
+        }
     }
 
 
@@ -397,7 +490,7 @@ function opponentDeath(){
         } else {
             console.log("test");
             $("#sign-in-wrapper").css("display", "block");
-            $("#app-wrapper").css("display", "block");
+            $("#app-wrapper").css("display", "none");
 
         }
 

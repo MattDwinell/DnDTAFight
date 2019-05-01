@@ -397,7 +397,7 @@ function opponentDeath(){
         } else {
             console.log("test");
             $("#sign-in-wrapper").css("display", "block");
-            $("#app-wrapper").css("display", "block");
+            $("#app-wrapper").css("display", "none");
 
         }
 

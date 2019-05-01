@@ -298,11 +298,21 @@ $(document).ready(function () {
         dialogScrubber();
         setTimeout(opponentImageClear, 1000);
         if (defeatedOpponents == 5) {
-            playerImmortalize();
+            var playerTagDiv = $("<input>",{
+                "placeholder": "your name/tag", "id": "player-tag-div"
+            })
+            var playerTagButton = $("<button>",{
+                "id": "player-tag-button"
+            }).text("Submit");
+            $("#dialog-box").append(playerTagDiv, playerTagButton);
+            dialogScrubber();
+           
         }
 
 
     }
+    $("#player-tag-button").on("click", playerImmortalize);
+
     function opponentImageClear() {
         $("#opponent-image-holder").attr("src", "").css("visibility", "hidden");
         $("#generate-opponent-character").css("visibility", "visible");
@@ -349,11 +359,12 @@ $(document).ready(function () {
         console.log("immortalize function activated");
         var playerHPRemaining = player.hitPoints;
         var playerCreature = player.name;
-        var playertag = "bob";
+        var playerTag = $("#player-tag-div").val().trim();
+        console.log(playerTag)
         database.ref().push({
             playerHPRemaining: playerHPRemaining,
             playerCreature: playerCreature,
-            playertag: playertag
+            playerTag: playerTag
         })
 
     }
@@ -374,18 +385,23 @@ $(document).ready(function () {
         console.log(snapshot.val());
         console.log(snapshot.val().monsterImage, snapshot.val().playerCreature)
         if (snapshot.val().monsterImage) {
-            var newMonsterName = $("<p>").text(snapshot.val().monsterName);
-            var newMonsterImage = $("<p>").text(snapshot.val().monsterImage);
-            var newMonsterHPRemaining = $("<p>").text(snapshot.val().monsterHPRemaining);
-            $("#monster-image").append(newMonsterImage);
+            
+            var newMonsterName = $("<p>").text(snapshot.val().monsterName).attr("height", "50px");
+            var newMonsterImage = $("<img>",{"src": snapshot.val().monsterImage, "width": "50px", "height": "50px", "id":"immortalized-monster-image"
+
+            });
+            var newMonsterImageDiv = $("<div>").attr("id", "immortalized-monster-div");
+            newMonsterImageDiv.append(newMonsterImage);
+            var newMonsterHPRemaining = $("<p>").text(snapshot.val().monsterHPRemaining).attr("height", "50px");
+            $("#monster-image").append(newMonsterImageDiv);
             $("#monster-name").append(newMonsterName);
             $("#monster-hp-remaining").append(newMonsterHPRemaining);
         } else if (snapshot.val().playerCreature) {
-            var newplayerName = $("<p>").text(snapshot.val().playerName);
-            var newPlayerTag = $("<p>").text(snapshot.val().playertag);
+            var newplayerCreature = $("<p>").text(snapshot.val().playerCreature);
+            var newPlayerTag = $("<p>").text(snapshot.val().playerTag);
             var newPlayerHPRemaining = $("<p>").text(snapshot.val().playerHPRemaining);
             $("#player-tags").append(newPlayerTag);
-            $("#player-creatures").append(newplayerName);
+            $("#player-creatures").append(newplayerCreature);
             $("#player-hp-remaining").append(newPlayerHPRemaining);
         }
 

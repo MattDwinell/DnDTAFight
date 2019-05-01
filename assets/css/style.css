@@ -102,3 +102,9 @@ body{
     border-radius: 3px;
     padding:2px;
 }
+#immortalized-monster-image{
+    border:2px solid red;
+    border-radius: 1px;
+
+
+}

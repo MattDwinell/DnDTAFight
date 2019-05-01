@@ -252,7 +252,7 @@ $(document).ready(function () {
                 //temporary, need to code something to address formats like 1d10 + 1d8
                 var diceSides = 6;
             }
-            if (opponent.damageBonus == "undefined") {
+            if (typeof opponent.damageBonus == "undefined") {
                 opponent.damageBonus = 0;
             }
             var opponentAttackDamage = opponent.damageBonus;
@@ -301,10 +301,8 @@ $(document).ready(function () {
             var playerTagDiv = $("<input>",{
                 "placeholder": "your name/tag", "id": "player-tag-div"
             })
-            var playerTagButton = $("<button>",{
-                "id": "player-tag-button"
-            }).text("Submit");
-            $("#dialog-box").append(playerTagDiv, playerTagButton);
+            var playerTagButton = $("<button>").attr("id", "player-tag-div").text("Submit");
+            $("#dialog-box").prepend(playerTagButton, playerTagDiv);
             dialogScrubber();
            
         }
@@ -320,6 +318,8 @@ $(document).ready(function () {
         $("#opponent-name").css("visibility", "hidden");
         if (defeatedOpponents == 5) {
             playerImmortalize();
+            playerDeath();
+            defeatedPlayer = 0;
         }
     }
     
@@ -343,6 +343,8 @@ $(document).ready(function () {
         console.log(defeatedPlayer);
         if (defeatedPlayer == 3) {
             monsterImmortalize();
+            opponentDeath();
+            defeatedOpponents = 0;
         }
 
     }
@@ -374,7 +376,7 @@ $(document).ready(function () {
         var monsterName = opponent.name;
         var monsterHPRemaining = opponent.hitPoints;
         database.ref().push({
-            monsterImage: monsterUrl,
+         //   monsterImage: monsterUrl,
             monsterName: monsterName,
             monsterHPRemaining: monsterHPRemaining
         })
@@ -384,16 +386,16 @@ $(document).ready(function () {
     database.ref().on("child_added", function (snapshot) {
         console.log(snapshot.val());
         console.log(snapshot.val().monsterImage, snapshot.val().playerCreature)
-        if (snapshot.val().monsterImage) {
+        if (snapshot.val().monsterName) {
             
             var newMonsterName = $("<p>").text(snapshot.val().monsterName).attr("height", "50px");
-            var newMonsterImage = $("<img>",{"src": snapshot.val().monsterImage, "width": "50px", "height": "50px", "id":"immortalized-monster-image"
+           // var newMonsterImage = $("<img>",{"src": snapshot.val().monsterImage, "width": "50px", "height": "50px", "id":"immortalized-monster-image"
 
-            });
-            var newMonsterImageDiv = $("<div>").attr("id", "immortalized-monster-div");
-            newMonsterImageDiv.append(newMonsterImage);
+          //  });
+          //  var newMonsterImageDiv = $("<div>").attr("id", "immortalized-monster-div");
+          //  newMonsterImageDiv.append(newMonsterImage);
             var newMonsterHPRemaining = $("<p>").text(snapshot.val().monsterHPRemaining).attr("height", "50px");
-            $("#monster-image").append(newMonsterImageDiv);
+          //  $("#monster-image").append(newMonsterImageDiv);
             $("#monster-name").append(newMonsterName);
             $("#monster-hp-remaining").append(newMonsterHPRemaining);
         } else if (snapshot.val().playerCreature) {

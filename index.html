@@ -14,6 +14,7 @@
 </head>
 
 <body>
+        <button class="btn waves-effect waves-light sign-out">Sign out</button>
     <div class="container" id="sign-in-wrapper">
         <div class="row">
             <div class="col s3">
@@ -40,7 +41,7 @@
             <div class="row">
                 <div class="col s4">
                     <button id="generate-user-character" class="btn " type="submit" name="action">Create Character
-                        <i class="material-icons right"></i>
+                        
                     </button>
 
                 </div>
@@ -49,7 +50,7 @@
                 </div>
                 <div class="col s4">
                     <button id="generate-opponent-character" class="btn " type="submit" name="action"> Find Opponent
-                        <i class="material-icons right"></i>
+                        
                     </button>
                 </div>
             </div>
@@ -62,9 +63,10 @@
                     </div>
                 </div>
                 <div class="col s2">
-                    <button id="attack" class="btn " type="submit" name="action">Fight!
-                        <i class="material-icons right"></i>
-                    </button>
+                        <a class="waves-effect waves-light btn" id="attack">Fight!</a>
+                    <!-- <button id="attack" class="btn" type="submit" name="action">Fight! -->
+                       
+                    <!-- </button> -->
                 </div>
                 <div class="col s5">
                     <img src="" width=auto height="250px" id="opponent-image-holder">
@@ -102,7 +104,6 @@
                     <button id="high-scores" class="btn " type="submit" name="action">Toggle
                         Immortalized Monsters
                         <i class="material-icons right"></i>
-                        <button class="btn waves-effect waves-light sign-out">Sign out</button>
                     </button>
                 </div>
             </div>
@@ -112,6 +113,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
     <script src="assets/javascript/app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+    <script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+  crossorigin="anonymous"></script>
 </body>
 
 </html>

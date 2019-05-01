@@ -1,3 +1,11 @@
+.sign-out{
+    float:right;
+    top: 10px;
+
+    padding: 2px;
+    right: 10px;
+   
+}
 body{
     background-image: url("../images/colosseum-background-image.jpg");
     background-size: cover;
@@ -21,7 +29,7 @@ body{
     border-radius: 4px;
     visibility:hidden;
 }
-.lighten-4{
+.lighten-3{
     border: 2px solid #bbdefb;
     border-radius:4px;
     visibility:hidden;
@@ -66,3 +74,11 @@ body{
   ::-ms-input-placeholder { /* Microsoft Edge */
     color: black;
   }
+ 
+#password, #email{
+    visibility:visible;
+}
+* body{
+    overflow-y: scroll;
+    overflow-x: hidden;
+} 

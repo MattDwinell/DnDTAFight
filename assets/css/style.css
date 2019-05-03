@@ -119,7 +119,7 @@ body{
     position:absolute;
     z-index: 100;
     margin-top:100px;
-    margin-left: 0px;
+    margin-left: 1%;
 }
 #opponent-face-div{
     margin-left: auto;

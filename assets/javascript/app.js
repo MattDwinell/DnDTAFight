@@ -188,7 +188,7 @@ $(document).ready(function () {
         console.log(userImage, opponentImage, player.damageDice);
         if (player.hitPoints > 0 && opponent.hitPoints > 0) {
             $("#opponent-image-holder").effect("shake");
-            $("#ta-opponent");
+            $("#ta-opponent").effect("shake");
             console.log(player, opponent);
             var playerAttackMessage = "";
             var d20 = Math.ceil(Math.random() * 20);

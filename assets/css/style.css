@@ -28,6 +28,8 @@ body{
     border: 2px solid red;
     border-radius: 4px;
     visibility:hidden;
+    margin-left: auto;
+    margin-right:auto;
 }
 .lighten-3{
     border: 2px solid #bbdefb;
@@ -109,7 +111,17 @@ body{
 
 }
 #audio-controller{
-    position: absolute;
+    position: fixed;
     left: 0;
     bottom: 0;
+}
+#ta-opponent{
+    position:absolute;
+    z-index: 100;
+    margin-top:100px;
+    margin-left: 1%;
+}
+#opponent-face-div{
+    margin-left: auto;
+    margin-right:auto;
 }

@@ -69,7 +69,10 @@
                     <!-- </button> -->
                 </div>
                 <div class="col s5">
+                    <div id="opponent-face-div">
+                        <img src="" id="ta-opponent">
                     <img src="" width=auto height="250px" id="opponent-image-holder">
+                </div>
                     <div class="row">
                         <div class="col s12 blue lighten-5 hide-on-start" id="opponent-name"></div>
                         <div class="col s12 deep-orange lighten-4 hide-on-start" id="opponent-hp"></div>
@@ -111,9 +114,9 @@
                 <div id="player-toggle-wrapper" toggle="hidden">
                     <div class="col s6">
                         <div class="row blue darken-2 players">
-                            <div class="col s4" id="player-tags"> Player Tag</div>
-                            <div class="col s4" id="player-creatures">Creature Used</div>
-                            <div class="col s4" id="player-hp-remaining">Hp Remaining</div>
+                            <!-- <div class="col s4" id="player-tags"> Player Tag</div> -->
+                            <div class="col s6" id="player-creatures">Creature Used</div>
+                            <div class="col s6" id="player-hp-remaining">Hp Remaining</div>
 
                         </div>
                     </div>
@@ -122,9 +125,8 @@
                 <div id="monster-toggle-wrapper" toggle="hidden">
                     <div class="col s6">
                         <div class="row deep-orange accent-3 monsters">
-                            <div class="col s4" id="monster-image">monster image</div>
-                            <div class="col s4" id="monster-name">Monster Name</div>
-                            <div class="col s4" id="monster-hp-remaining"> HP Remaining</div>
+                            <div class="col s6" id="monster-name">Monster Name</div>
+                            <div class="col s6" id="monster-hp-remaining"> HP Remaining</div>
 
                         </div>
                     </div>

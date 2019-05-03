@@ -495,7 +495,11 @@ $(document).ready(function () {
         }
 
     })
+
 })
+
+   
+
 //google api or bing api info
 //google:
 //https://www.googleapis.com/customsearch/v1?key= + yourapikey + &cx=+ custom search engine id + &q= + player/monster.name + &num=1.

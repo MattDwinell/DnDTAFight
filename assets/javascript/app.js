@@ -302,7 +302,7 @@ $(document).ready(function () {
         $("#dialog-box").prepend(victoryMessage);
         dialogScrubber();
         
-        if (defeatedOpponents == 1) {
+        if (defeatedOpponents == 5) {
            var playerImmortalizeMessage = $("<p>").text("You have conquered the arena! Press submit to immortalize.");
             var playerTagButton = $("<button>").attr("id", "immortalize-player").text("Submit");
             $("#dialog-box").prepend(playerTagButton, playerImmortalizeMessage);
@@ -330,7 +330,7 @@ $(document).ready(function () {
         $("#generate-opponent-character").css("visibility", "visible");
         $("#opponent-hp").css("visibility", "hidden");
         $("#opponent-name").css("visibility", "hidden");
-        if (defeatedOpponents == 1) {
+        if (defeatedOpponents == 5) {
             playerDeath();
             defeatedPlayer = 0;
         }

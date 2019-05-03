@@ -188,6 +188,7 @@ $(document).ready(function () {
         console.log(userImage, opponentImage, player.damageDice);
         if (player.hitPoints > 0 && opponent.hitPoints > 0) {
             $("#opponent-image-holder").effect("shake");
+            $("#ta-opponent");
             console.log(player, opponent);
             var playerAttackMessage = "";
             var d20 = Math.ceil(Math.random() * 20);
@@ -366,12 +367,12 @@ $(document).ready(function () {
         console.log("immortalize function activated");
         var playerHPRemaining = player.hitPoints;
         var playerCreature = player.name;
-        var playerTag = $("#player-tag-div").val().trim();
+       // var playerTag = $("#player-tag-div").val().trim();
         console.log(playerTag)
         database.ref().push({
             playerHPRemaining: playerHPRemaining,
-            playerCreature: playerCreature,
-            playerTag: playerTag
+            playerCreature: playerCreature
+         //   playerTag: playerTag
         })
 
     }
@@ -405,9 +406,9 @@ $(document).ready(function () {
             $("#monster-hp-remaining").append(newMonsterHPRemaining);
         } else if (snapshot.val().playerCreature) {
             var newplayerCreature = $("<p>").text(snapshot.val().playerCreature);
-            var newPlayerTag = $("<p>").text(snapshot.val().playerTag);
+          //  var newPlayerTag = $("<p>").text(snapshot.val().playerTag);
             var newPlayerHPRemaining = $("<p>").text(snapshot.val().playerHPRemaining);
-            $("#player-tags").append(newPlayerTag);
+          //  $("#player-tags").append(newPlayerTag);
             $("#player-creatures").append(newplayerCreature);
             $("#player-hp-remaining").append(newPlayerHPRemaining);
         }

@@ -11,7 +11,7 @@ $(document).ready(function () {
     };
     firebase.initializeApp(config);
     database = firebase.database();
-    var generator = "null";
+    var taArray = [ "./assets/images/Brendan-neutral-face.jpg", "./assets/images/austin-happy-face.png", "./assets/images/joe-happy-face.jpg","./assets/images/karsten-neutral-face.jpg","assets/images/stephen-happy-face.png" ];
     var messageCount = 0;
     var defeatedOpponents = 0;
     var defeatedPlayer = 0;
@@ -96,6 +96,8 @@ $(document).ready(function () {
         event.preventDefault();
         generator = "opponent";
         opponentImage = $("#opponent-image-holder").attr("src");
+        var randNum = Math.floor(Math.random()*taArray.length);
+        $("#ta-opponent").attr("src", taArray[randNum]);
         if (opponentImage == "") {
             $("#generate-opponent-character").css("visibility", "hidden");
             $("#opponent-image-holder").css("visibility", "visible");
@@ -314,6 +316,7 @@ $(document).ready(function () {
     $("#player-tag-button").on("click", playerImmortalize);
 
     function opponentImageClear() {
+        $("#ta-opponent").attr("src", "")
         $("#opponent-image-holder").attr("src", "").css("visibility", "hidden");
         $("#generate-opponent-character").css("visibility", "visible");
         $("#opponent-hp").css("visibility", "hidden");
@@ -374,7 +377,7 @@ $(document).ready(function () {
     }
     function monsterImmortalize() {
         console.log("immortalize function activated");
-        var monsterUrl = opponent.stillImageUrl;
+      //  var monsterUrl = opponent.stillImageUrl;
         var monsterName = opponent.name;
         var monsterHPRemaining = opponent.hitPoints;
         database.ref().push({

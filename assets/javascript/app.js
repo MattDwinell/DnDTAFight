@@ -181,6 +181,8 @@ $(document).ready(function () {
     //coding the on'click button for fighting.
     $("#attack").on("click", function (event) {
         event.preventDefault();
+        player.name.split("+").join(" ");
+        opponent.name.split("+").join(" ");
         console.log(userImage, opponentImage, player.damageDice);
         if (player.hitPoints > 0 && opponent.hitPoints > 0) {
             $("#opponent-image-holder").effect("shake");

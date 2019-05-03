@@ -215,13 +215,13 @@ $(document).ready(function () {
                 console.log(damageDiceArray);
 
 
-                playerAttackMessage += "You rolled a " + playerAttackRoll + " and hit the " + opponent.name + " for " + playerAttackDamage + " damage.";
+                playerAttackMessage += "You rolled a " + playerAttackRoll + " and hit the " + opponent.name.split("+").join(" ") + " for " + playerAttackDamage + " damage.";
                 opponent.hitPoints -= playerAttackDamage
                 $("#opponent-hp").text("Current HP: " + opponent.hitPoints);
 
 
             } else {
-                playerAttackMessage += "You rolled a " + playerAttackRoll + " and you were unable to hit the " + opponent.name;
+                playerAttackMessage += "You rolled a " + playerAttackRoll + " and you were unable to hit the " + opponent.name.split("+").join(" ");
             }
             var playerDialogMessage = $("<p>").text(playerAttackMessage).attr("class", "green accent-1");
             $("#dialog-box").prepend(playerDialogMessage);
@@ -301,20 +301,28 @@ $(document).ready(function () {
         $("#player-hp").text("current HP: " + player.hitPoints);
         $("#dialog-box").prepend(victoryMessage);
         dialogScrubber();
-        setTimeout(opponentImageClear, 1000);
-        if (defeatedOpponents == 5) {
-            var playerTagDiv = $("<input>",{
-                "placeholder": "your name/tag", "id": "player-tag-div"
-            })
-            var playerTagButton = $("<button>").attr("id", "player-tag-div").text("Submit");
-            $("#dialog-box").prepend(playerTagButton, playerTagDiv);
+        
+        if (defeatedOpponents == 1) {
+           var playerImmortalizeMessage = $("<p>").text("You have conquered the arena! Press submit to immortalize.");
+            var playerTagButton = $("<button>").attr("id", "immortalize-player").text("Submit");
+            $("#dialog-box").prepend(playerTagButton, playerImmortalizeMessage);
             dialogScrubber();
+            $("#immortalize-player").on("click", function(event){
+                console.log("submit button working");
+                event.preventDefault();
+                event.stopPropagation();
+                console.log("submit button working");
+                playerImmortalize();
+                opponentImageClear();
+            });
            
+        } else {
+            setTimeout(opponentImageClear, 1000);
         }
 
 
     }
-    $("#player-tag-button").on("click", playerImmortalize);
+   
 
     function opponentImageClear() {
         $("#ta-opponent").attr("src", "")
@@ -322,8 +330,7 @@ $(document).ready(function () {
         $("#generate-opponent-character").css("visibility", "visible");
         $("#opponent-hp").css("visibility", "hidden");
         $("#opponent-name").css("visibility", "hidden");
-        if (defeatedOpponents == 5) {
-            playerImmortalize();
+        if (defeatedOpponents == 1) {
             playerDeath();
             defeatedPlayer = 0;
         }
@@ -366,9 +373,8 @@ $(document).ready(function () {
     function playerImmortalize() {
         console.log("immortalize function activated");
         var playerHPRemaining = player.hitPoints;
-        var playerCreature = player.name;
+        var playerCreature = player.name.split("+").join(" ");
        // var playerTag = $("#player-tag-div").val().trim();
-        console.log(playerTag)
         database.ref().push({
             playerHPRemaining: playerHPRemaining,
             playerCreature: playerCreature

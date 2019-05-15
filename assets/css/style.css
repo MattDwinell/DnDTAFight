@@ -1,3 +1,11 @@
+.sign-out{
+    float:right;
+    top: 10px;
+
+    padding: 2px;
+    right: 10px;
+   
+}
 body{
     background-image: url("../images/colosseum-background-image.jpg");
     background-size: cover;
@@ -20,8 +28,15 @@ body{
     border: 2px solid red;
     border-radius: 4px;
     visibility:hidden;
+<<<<<<< HEAD
 }
 .lighten-5{
+=======
+    margin-left: auto;
+    margin-right:auto;
+}
+.lighten-3{
+>>>>>>> 135ff87701940322abbd1129120646ac026ff3f1
     border: 2px solid #bbdefb;
     border-radius:4px;
     visibility:hidden;
@@ -40,4 +55,81 @@ body{
 }
 .hide-on-start{
     visibility: hidden;
+<<<<<<< HEAD
+=======
+}
+#app-wrapper{
+    display:none;
+}
+#sign-in-wrapper{
+    padding:5px 0px;;
+    
+    display:block;
+}
+#form-wrapper{
+    padding: 5px 5px;
+    border: 2px solid #e0e0e0;
+    
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: black;
+    opacity: 1; /* Firefox */
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: black;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: black;
+  }
+ 
+#password, #email{
+    visibility:visible;
+}
+* body{
+    overflow-y: scroll;
+    overflow-x: hidden;
+} 
+#player-toggle-wrapper {
+    display:none;
+    color:white;
+   
+}
+#monster-toggle-wrapper{
+    display:none;
+    color:white;
+    
+}
+.monsters{
+    border: 2px solid #c0ca33;
+    border-radius: 3px;
+    padding:2px;
+}
+.players{
+    border: 2px solid #69f0ae;
+    border-radius: 3px;
+    padding:2px;
+}
+#immortalized-monster-image{
+    border:2px solid red;
+    border-radius: 1px;
+
+
+}
+#audio-controller{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+#ta-opponent{
+    position:absolute;
+    z-index: 100;
+    margin-top:100px;
+    margin-left: 1%;
+}
+#opponent-face-div{
+    margin-left: auto;
+    margin-right:auto;
+>>>>>>> 135ff87701940322abbd1129120646ac026ff3f1
 }

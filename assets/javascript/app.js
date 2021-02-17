@@ -49,7 +49,7 @@ $(document).ready(function () {
             $("#player-name").css("visibility", "visible");
             $("#player-hp").css("visibility", "visible");
             var randomIndex = Math.ceil(Math.random() * 325);
-            var dndURL = "https://dnd5eapi.co/api/monsters/" + randomIndex + "/";
+            var dndURL = "https://api.open5e.com/monsters/" + randomIndex + "/";
             $.ajax({
                 url: dndURL,
                 method: "GET"
@@ -104,7 +104,7 @@ $(document).ready(function () {
             $("#opponent-name").css("visibility", "visible");
             $("#opponent-hp").css("visibility", "visible");
             var randomIndex = Math.ceil(Math.random() * 325);
-            var dndURL = "?http://dnd5eapi.co/api/monsters/" + randomIndex + "/";
+            var dndURL = "https://api.open5e.com/monsters/" + randomIndex + "/";
             $.ajax({
                 url: dndURL,
                 method: "GET"
@@ -396,8 +396,8 @@ $(document).ready(function () {
     }
 
     database.ref().on("child_added", function (snapshot) {
-        console.log(snapshot.val());
-        console.log(snapshot.val().monsterImage, snapshot.val().playerCreature)
+      // console.log(snapshot.val());
+       // console.log(snapshot.val().monsterImage, snapshot.val().playerCreature)
         if (snapshot.val().monsterName) {
             
             var newMonsterName = $("<p>").text(snapshot.val().monsterName).attr("height", "50px");
@@ -460,7 +460,7 @@ $(document).ready(function () {
         event.preventDefault();
         var email = $("#email").val().trim();
         var password = $("#password").val().trim();
-        console.log(email, password);
+       // console.log(email, password);
         if (!email || !password) {
             $("#sign-in-message").text("please input both email and password to sign in, or create one by registering an account.");
         } else {
@@ -477,7 +477,7 @@ $(document).ready(function () {
         event.preventDefault();
         var email = $("#email").val().trim();
         var password = $("#password").val().trim();
-        console.log(email, password);
+      //  console.log(email, password);
         if (!email || !password) {
             $("#sign-in-message").text("please input both email and password to sign in, or create one by registering an account.");
         } else {

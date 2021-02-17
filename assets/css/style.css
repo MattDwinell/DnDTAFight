@@ -85,13 +85,15 @@ body{
     overflow-x: hidden;
 } 
 #player-toggle-wrapper {
-    display:none;
+    /* display:none; */
     color:white;
+    visibility: hidden;
    
 }
 #monster-toggle-wrapper{
-    display:none;
+    /* display:none; */
     color:white;
+    visibility: hidden;
     
 }
 .monsters{

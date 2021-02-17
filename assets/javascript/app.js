@@ -178,7 +178,11 @@ $(document).ready(function () {
 
         }).then(function (googleresponse) {
             console.log(googleresponse.items[0].link);
+            if(googleresponse.items[0].link.length){
             opponent.stillImageUrl = googleresponse.items[0].link;
+            } else {
+                opponent.stillImageUrl = googleresponse.items[1].link
+            }
             $("#opponent-image-holder").attr("src", opponent.stillImageUrl);
             opponent.name = opponent.name.split('+').join(" ");
         });
@@ -296,14 +300,19 @@ $(document).ready(function () {
 
     }
 
-    function opponentDeath() {
+    function opponentDeath(opponentDied = true) {
         defeatedPlayer = 0;
         defeatedOpponents++;
         console.log(defeatedOpponents, "opponent died");
-        var victoryMessage = $("<p>").text("You have destroyed the " + opponent.name + "! You take a moment to rest before your next battle");
+        var victoryMessage = $("<p>").text("You have destroyed the " + opponent.name + "! You take a moment to rest before your next battle (you recover 5 hitpoints)");
         player.hitPoints += 5;
+        if(opponentDied){
         $("#player-hp").text("current HP: " + player.hitPoints);
         $("#dialog-box").prepend(victoryMessage);
+        }else{
+            var defeatMessage = $("<p>").text("The " + opponent.name + " has conquered all in the arena. It lumbers away in search of stronger prey, immortalized in the annals of the colliseum's records.");
+            $("#dialog-box").prepend(defeatMessage);
+        }
         dialogScrubber();
         
         if (defeatedOpponents == 5) {
@@ -360,7 +369,7 @@ $(document).ready(function () {
         console.log(defeatedPlayer);
         if (defeatedPlayer == 3) {
             monsterImmortalize();
-            opponentDeath();
+            opponentDeath(false);
             defeatedOpponents = 0;
         }
 
@@ -404,13 +413,13 @@ $(document).ready(function () {
        // console.log(snapshot.val().monsterImage, snapshot.val().playerCreature)
         if (snapshot.val().monsterName) {
             
-            var newMonsterName = $("<p>").text(snapshot.val().monsterName).attr("height", "50px");
+            var newMonsterName = $("<p>").text(snapshot.val().monsterName).attr("height", "40px");
            // var newMonsterImage = $("<img>",{"src": snapshot.val().monsterImage, "width": "50px", "height": "50px", "id":"immortalized-monster-image"
 
           //  });
           //  var newMonsterImageDiv = $("<div>").attr("id", "immortalized-monster-div");
           //  newMonsterImageDiv.append(newMonsterImage);
-            var newMonsterHPRemaining = $("<p>").text(snapshot.val().monsterHPRemaining).attr("height", "50px");
+            var newMonsterHPRemaining = $("<p>").text(snapshot.val().monsterHPRemaining).attr("height", "40px");
           //  $("#monster-image").append(newMonsterImageDiv);
             $("#monster-name").append(newMonsterName);
             $("#monster-hp-remaining").append(newMonsterHPRemaining);
@@ -440,20 +449,20 @@ $(document).ready(function () {
         if (playerShown == "hidden") {
             
             $("#player-toggle-wrapper").attr("toggle", "shown");
-            $("#player-toggle-wrapper").css("display", "block");
+            $("#player-toggle-wrapper").css("visibility", "visible");
         } else {
             $("#player-toggle-wrapper").attr("toggle", "hidden");
-            $("#player-toggle-wrapper").css("display", "none");
+            $("#player-toggle-wrapper").css("visibility", "hidden");
         }
     }
     function monsterToggle() {
         var monsterShown = $("#monster-toggle-wrapper").attr("toggle");
         if (monsterShown == "hidden") {
             $("#monster-toggle-wrapper").attr("toggle", "shown");
-            $("#monster-toggle-wrapper").css("display", "block");
+            $("#monster-toggle-wrapper").css("visibility", "visible");
         } else {
             $("#monster-toggle-wrapper").attr("toggle", "hidden");
-            $("#monster-toggle-wrapper").css("display", "none");
+            $("#monster-toggle-wrapper").css("visibility", "hidden");
         }
     }
 

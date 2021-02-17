@@ -49,12 +49,13 @@ $(document).ready(function () {
             $("#player-name").css("visibility", "visible");
             $("#player-hp").css("visibility", "visible");
             var randomIndex = Math.ceil(Math.random() * 325);
-            var dndURL = "https://api.open5e.com/monsters/" + randomIndex + "/";
+            var dndURL = "https://api.open5e.com/monsters/?ordering=challenge_rating";
             $.ajax({
                 url: dndURL,
                 method: "GET"
             }).then(function (response) {
                 var result = JSON.parse(response);
+                console.log(result);
                 player.name = result.name;
                 player.armorClass = result.armor_class;
                 player.hitPoints = result.hit_points;
@@ -496,11 +497,11 @@ $(document).ready(function () {
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
 
-            console.log(user);
+            // console.log(user);
             $("#sign-in-wrapper").css("display", "none");
             $("#app-wrapper").css("display", "block");
         } else {
-            console.log("test");
+            // console.log("test");
             $("#sign-in-wrapper").css("display", "block");
             $("#app-wrapper").css("display", "none");
 

@@ -48,13 +48,14 @@ $(document).ready(function () {
             $("#user-image-holder").css("visibility", "visible");
             $("#player-name").css("visibility", "visible");
             $("#player-hp").css("visibility", "visible");
-            var randomIndex = Math.ceil(Math.random() * 325);
-            var dndURL = "https://api.open5e.com/monsters/?ordering=challenge_rating";
+            var randomIndex = Math.ceil(Math.random() * 22);
+            var dndURL = "https://api.open5e.com/monsters/?page=" + randomIndex;
             $.ajax({
                 url: dndURL,
                 method: "GET"
             }).then(function (response) {
-                var result = JSON.parse(response);
+                console.log(response);
+                var result = response.results[Math.floor(Math.random() * response.results.length)];
                 console.log(result);
                 player.name = result.name;
                 player.armorClass = result.armor_class;
@@ -104,13 +105,15 @@ $(document).ready(function () {
             $("#opponent-image-holder").css("visibility", "visible");
             $("#opponent-name").css("visibility", "visible");
             $("#opponent-hp").css("visibility", "visible");
-            var randomIndex = Math.ceil(Math.random() * 325);
-            var dndURL = "https://api.open5e.com/monsters/" + randomIndex + "/";
+            var randomIndex = Math.ceil(Math.random() * 22);
+            var dndURL = "https://api.open5e.com/monsters/?page=" + randomIndex;
             $.ajax({
                 url: dndURL,
                 method: "GET"
             }).then(function (response) {
-                var result = JSON.parse(response);
+                console.log(response);
+                var result = response.results[Math.floor(Math.random() * response.results.length)];
+                console.log(result);
                 opponent.name = result.name;
                 opponent.armorClass = result.armor_class;
                 opponent.hitPoints = result.hit_points;
@@ -149,7 +152,7 @@ $(document).ready(function () {
     //setting google retrieve as a separate function to be called one second after first api call- to prevent .then problems.
     function userGoogleRetrieve() {
 
-        var googleUrl = "https://www.googleapis.com/customsearch/v1?key=AIzaSyAaUUgoWlaZBGGzG4HNuQUN3Jcrw4NH7zU&cx=008788128101746337676:gz0k2znll90&q=dnd+" + player.name + "=1&searchType=image&num=2";
+        var googleUrl = "https://www.googleapis.com/customsearch/v1?key=AIzaSyAaUUgoWlaZBGGzG4HNuQUN3Jcrw4NH7zU&cx=008788128101746337676:gz0k2znll90&q=dnd+fan+art+" + player.name + "=1&searchType=image&num=2";
         $.ajax({
             url: googleUrl,
             method: "GET"
@@ -168,7 +171,7 @@ $(document).ready(function () {
     }
     //setting a separate function for opponent google retrieve. we will try and combine the two functions when we DRY up the code
     function opponentGoogleRetrieve() {
-        var googleUrl = "https://www.googleapis.com/customsearch/v1?key=AIzaSyAaUUgoWlaZBGGzG4HNuQUN3Jcrw4NH7zU&cx=008788128101746337676:gz0k2znll90&q=dnd+" + opponent.name + "=1&searchType=image&num=2";
+        var googleUrl = "https://www.googleapis.com/customsearch/v1?key=AIzaSyAaUUgoWlaZBGGzG4HNuQUN3Jcrw4NH7zU&cx=008788128101746337676:gz0k2znll90&q=dnd+fan+art" + opponent.name + "=1&searchType=image&num=2";
         $.ajax({
             url: googleUrl,
             method: "GET"

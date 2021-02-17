@@ -49,7 +49,7 @@ $(document).ready(function () {
             $("#player-name").css("visibility", "visible");
             $("#player-hp").css("visibility", "visible");
             var randomIndex = Math.ceil(Math.random() * 325);
-            var dndURL = "https://cors.io/?http://dnd5eapi.co/api/monsters/" + randomIndex + "/";
+            var dndURL = "https://dnd5eapi.co/api/monsters/" + randomIndex + "/";
             $.ajax({
                 url: dndURL,
                 method: "GET"
